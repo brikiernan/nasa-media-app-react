@@ -1,0 +1,31 @@
+#media-item {
+  width: 28rem;
+  --body-padding: var(--spacing-0);
+}
+
+#media-item > img {
+  height: 20rem;
+  object-fit: cover;
+}
+
+#media-item-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#media-item-description {
+  height: 4.75rem;
+  margin: var(--spacing-3) var(--spacing-6) 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+rux-card#media-item::part(footer) {
+  display: flex;
+  justify-content: flex-end;
+}

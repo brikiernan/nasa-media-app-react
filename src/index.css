@@ -1,2 +1,14 @@
 @import '@astrouxds/astro-web-components/dist/astro-web-components/astro-web-components.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:wght@200;300;400;500;600;800&display=swap');
+
+* {
+  margin: 0;
+}
+
+.media-item-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 28rem);
+  padding: var(--spacing-6);
+  gap: var(--spacing-3);
+  justify-content: space-around;
+}
