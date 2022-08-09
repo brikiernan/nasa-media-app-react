@@ -1,10 +1,12 @@
 import { RuxButton, RuxCard } from '@astrouxds/react';
+import { Link } from 'react-router-dom';
 
 import { Item } from 'types';
 import './media-item.css';
 
 export const MediaItem: React.FC<Item> = ({ data, links }) => {
-  const { description, title } = data[0];
+  if (!links) return null;
+  const { description, nasa_id, title } = data[0];
   const { href } = links[0];
 
   return (
@@ -17,9 +19,9 @@ export const MediaItem: React.FC<Item> = ({ data, links }) => {
         <p>{description}</p>
       </div>
       <div slot='footer'>
-        <a href='/details.html'>
+        <Link to={`/${nasa_id}`}>
           <RuxButton borderless>View full details...</RuxButton>
-        </a>
+        </Link>
       </div>
     </RuxCard>
   );

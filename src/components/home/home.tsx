@@ -17,7 +17,6 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      console.log('[FETCHING HOME DATA]...');
       const [rec, pop] = await Promise.all([
         client.get<Collection>(`${baseUrl}/recent.json`),
         client.get<Collection>(`${baseUrl}/popular.json`),
@@ -47,7 +46,6 @@ export const Home: React.FC = () => {
           </RuxTab>
         </RuxTabs>
       </nav>
-
       <main className='media-item-container'>
         {isPopular
           ? popular.map(item => (

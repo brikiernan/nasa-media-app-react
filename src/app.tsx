@@ -11,7 +11,7 @@ const App: React.FC = () => (
       <Route element={<AppLayout />}>
         <Route path='/' element={<Home />} />
         <Route path='/search' element={<Search />} />
-        <Route path='/details' element={<Details />} />
+        <Route path='/:nasa_id' element={<Details />} />
       </Route>
     </Routes>
   </BrowserRouter>

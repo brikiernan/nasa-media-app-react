@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   RuxButton,
@@ -7,7 +8,6 @@ import {
 } from '@astrouxds/react';
 
 import { useTheme } from 'hooks';
-import { useState } from 'react';
 import './search-header.css';
 
 export const SearchHeader: React.FC = () => {
