@@ -24,6 +24,7 @@ export const Home: React.FC = () => {
 
       setRecent(rec.collection.items);
       setPopular(pop.collection.items);
+      console.log(pop);
     };
 
     fetch();

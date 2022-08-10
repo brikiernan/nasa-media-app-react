@@ -7,6 +7,7 @@ import {
   RuxSwitch,
 } from '@astrouxds/react';
 
+import { useAppContext } from 'providers';
 import { useTheme } from 'hooks';
 import './search-header.css';
 
@@ -14,6 +15,7 @@ export const SearchHeader: React.FC = () => {
   const { label, onChange } = useTheme();
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const { setSearch } = useAppContext();
 
   const handleChange = (event: any) => {
     setQuery(event.target.value);
@@ -21,7 +23,9 @@ export const SearchHeader: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigate(`/search?q=${query}`);
+    const search = `/search?q=${query}`;
+    navigate(search);
+    setSearch(search);
     setQuery('');
   };
 

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Path } from 'types';
 import './breadcrums.css';
 
 type BreadcrumsProps = {
@@ -6,20 +7,20 @@ type BreadcrumsProps = {
   search?: string;
 };
 
-export const Breadcrums: React.FC<BreadcrumsProps> = props => {
-  const { nasa_id, search } = props;
-
-  return (
-    <nav id='breadcrums-nav'>
-      <Link to='/'>Home</Link>
-      <p>{'>'}</p>
-      {search ? <Link to={search}>Media Search</Link> : <p>Media Search</p>}
-      {nasa_id && (
-        <>
-          <p>{'>'}</p>
-          <p>{nasa_id}</p>
-        </>
-      )}
-    </nav>
-  );
-};
+export const Breadcrums: React.FC<BreadcrumsProps> = ({ nasa_id, search }) => (
+  <nav id='breadcrums-nav'>
+    <Link to={Path.home}>Home</Link>
+    {search && (
+      <>
+        <p>{'>'}</p>
+        <Link to={search}>Media Search</Link>
+      </>
+    )}
+    {nasa_id && (
+      <>
+        <p>{'>'}</p>
+        <p>{nasa_id}</p>
+      </>
+    )}
+  </nav>
+);

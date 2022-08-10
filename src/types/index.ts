@@ -1,3 +1,13 @@
+export enum Path {
+  details = '/:nasa_id',
+  home = '/',
+  search = '/search',
+}
+
+export type Children = {
+  children: React.ReactNode;
+};
+
 type Data = {
   center: string;
   date_created: string;

@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { useAppContext } from 'providers';
 import Breadcrums from 'components/breadcrums';
 
 export const Details: React.FC = () => {
+  const { search } = useAppContext();
   const { nasa_id } = useParams();
 
   useEffect(() => {
@@ -12,8 +14,9 @@ export const Details: React.FC = () => {
 
   return (
     <>
-      <Breadcrums search='/search?q=mars%20rover' nasa_id={nasa_id} />
+      <Breadcrums {...{ nasa_id, search }} />
       <div>Details...</div>
+      Search is: {search}
     </>
   );
 };
