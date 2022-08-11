@@ -1,5 +1,5 @@
 import { useAppContext } from 'providers';
-import Breadcrums from 'components/breadcrums';
+import Breadcrumbs from 'components/breadcrumbs';
 import MediaItem from 'components/media-item';
 import './search.css';
 
@@ -8,7 +8,7 @@ export const Search: React.FC = () => {
 
   return (
     <>
-      <Breadcrums {...{ search }} />
+      <Breadcrumbs {...{ search }} />
       <div className='search-results'>
         <h2>Showing results for "{result}"</h2>
       </div>

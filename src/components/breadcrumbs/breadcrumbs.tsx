@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Path } from 'types';
-import './breadcrums.css';
+import './breadcrumbs.css';
 
-type BreadcrumsProps = {
+type BreadcrumbsProps = {
   id?: string;
   search?: string;
 };
 
-export const Breadcrums: React.FC<BreadcrumsProps> = ({ id, search }) => (
-  <nav id='breadcrums-nav'>
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ id, search }) => (
+  <nav id='breadcrumbs-nav'>
     <Link to={Path.home}>Home</Link>
     {search && (
       <>

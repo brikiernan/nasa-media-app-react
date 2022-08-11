@@ -4,7 +4,7 @@ import { RuxButton, RuxContainer } from '@astrouxds/react';
 import { useAppContext } from 'providers';
 import { useItem } from 'hooks';
 import { setMediaUrl } from 'lib/utils';
-import Breadcrums from 'components/breadcrums';
+import Breadcrumbs from 'components/breadcrumbs';
 import MediaDisplay from 'components/media-display';
 import './details.css';
 
@@ -28,7 +28,7 @@ export const Details: React.FC = () => {
 
   return (
     <>
-      <Breadcrums {...{ id, search }} />
+      <Breadcrumbs {...{ id, search }} />
       <main id='details-container'>
         <RuxContainer>
           <div slot='header' id='details-download'>
