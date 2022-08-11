@@ -50,7 +50,7 @@ export const SearchHeader: React.FC = () => {
         onKeyDown={handleKeyDown}
       />
       <aside id='theme-switch' slot='right-side'>
-        <RuxSwitch onRuxchange={onChange} />
+        <RuxSwitch onRuxchange={onChange} checked={icon === 'wb-sunny'} />
         <RuxIcon icon={icon} size='small' />
       </aside>
     </RuxGlobalStatusBar>
