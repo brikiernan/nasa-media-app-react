@@ -3,3 +3,9 @@
   min-width: 30rem;
   flex-grow: 1;
 }
+
+#theme-switch {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}

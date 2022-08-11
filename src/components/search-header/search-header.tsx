@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RuxGlobalStatusBar, RuxInput, RuxSwitch } from '@astrouxds/react';
+import {
+  RuxGlobalStatusBar,
+  RuxIcon,
+  RuxInput,
+  RuxSwitch,
+} from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
 import { useTheme } from 'hooks';
 import './search-header.css';
 
 export const SearchHeader: React.FC = () => {
-  const { label, onChange } = useTheme();
+  const { icon, onChange } = useTheme();
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const { setSearch } = useAppContext();
@@ -44,7 +49,10 @@ export const SearchHeader: React.FC = () => {
         onRuxinput={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <RuxSwitch slot='right-side' label={label} onRuxchange={onChange} />
+      <aside id='theme-switch' slot='right-side'>
+        <RuxSwitch onRuxchange={onChange} />
+        <RuxIcon icon={icon} size='small' />
+      </aside>
     </RuxGlobalStatusBar>
   );
 };

@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import useLocalStorage from './use-local-storage';
 
 const darkClass = 'dark-theme';
-const darkLabel = 'Dark Theme';
+const darkIcon = 'flare';
 const lightClass = 'light-theme';
-const lightLabel = 'Light Theme';
-const initialTheme = { className: darkClass, label: darkLabel };
+const lightIcon = 'wb-sunny';
+const initialTheme = { className: darkClass, icon: darkIcon };
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState(initialTheme);
+  const [theme, setTheme] = useLocalStorage('astro-theme', initialTheme);
 
   const onChange = () => {
     setTheme(prev => {
       if (prev.className === darkClass) {
-        return { className: lightClass, label: lightLabel };
+        return { className: lightClass, icon: lightIcon };
       }
       return initialTheme;
     });
@@ -26,5 +27,5 @@ export const useTheme = () => {
     }
   }, [theme]);
 
-  return { onChange, label: theme.label };
+  return { icon: theme.icon, onChange };
 };
