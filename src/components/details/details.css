@@ -22,7 +22,7 @@
 
 #details-download > code {
   font-size: var(--font-size-xs);
-  background-color: var(--color-palette-brightblue-900);
+  background-color: var(--color-background-base-default);
   padding: var(--spacing-2) var(--spacing-4);
   border-radius: var(--radius-base);
 }
