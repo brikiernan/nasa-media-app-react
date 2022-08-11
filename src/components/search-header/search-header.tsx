@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  RuxButton,
-  RuxGlobalStatusBar,
-  RuxInput,
-  RuxSwitch,
-} from '@astrouxds/react';
+import { RuxGlobalStatusBar, RuxInput, RuxSwitch } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
 import { useTheme } from 'hooks';
@@ -21,12 +16,16 @@ export const SearchHeader: React.FC = () => {
     setQuery(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     const search = `/search?q=${query}`;
     navigate(search);
     setSearch(search);
     setQuery('');
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLRuxInputElement>) => {
+    if (event.key !== 'Enter') return;
+    handleSubmit();
   };
 
   return (
@@ -36,23 +35,15 @@ export const SearchHeader: React.FC = () => {
       appName='Media Search'
       slot='app-meta'
     >
-      <form onSubmit={handleSubmit} id='search-form'>
-        <RuxInput
-          id='search-input'
-          type='text'
-          size='large'
-          placeholder='Enter search term like... (Mars rover)'
-          value={query}
-          onRuxchange={handleChange}
-        />
-        <RuxButton
-          iconOnly
-          secondary
-          size='large'
-          icon='search'
-          type='submit'
-        />
-      </form>
+      <RuxInput
+        id='search-input'
+        type='search'
+        size='large'
+        placeholder='Enter search term like... "Mars rover"... and press enter'
+        value={query}
+        onRuxinput={handleChange}
+        onKeyDown={handleKeyDown}
+      />
       <RuxSwitch slot='right-side' label={label} onRuxchange={onChange} />
     </RuxGlobalStatusBar>
   );

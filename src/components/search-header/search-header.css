@@ -1,11 +1,5 @@
-#search-form {
-  display: flex;
-  gap: var(--spacing-3);
-  flex-grow: 1;
+#search-input {
   max-width: 60%;
   min-width: 30rem;
-}
-
-#search-input {
   flex-grow: 1;
 }
