@@ -8,8 +8,8 @@ import Home from 'components/home';
 import Search from 'components/search';
 
 const App: React.FC = () => (
-  <AppProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <AppProvider>
       <Routes>
         <Route element={<AppLayout />}>
           <Route path={Path.home} element={<Home />} />
@@ -17,8 +17,8 @@ const App: React.FC = () => (
           <Route path={Path.details} element={<Details />} />
         </Route>
       </Routes>
-    </BrowserRouter>
-  </AppProvider>
+    </AppProvider>
+  </BrowserRouter>
 );
 
 export default App;

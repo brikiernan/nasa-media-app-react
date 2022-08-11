@@ -15,6 +15,14 @@ h3 {
   font-weight: var(--font-weight-medium);
 }
 
+audio {
+  width: 100%;
+}
+
+video {
+  width: 100%;
+}
+
 .media-item-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, 28rem);

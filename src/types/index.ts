@@ -1,5 +1,5 @@
 export enum Path {
-  details = '/:nasa_id',
+  details = '/:id',
   home = '/',
   search = '/search',
 }
@@ -8,13 +8,16 @@ export type Children = {
   children: React.ReactNode;
 };
 
+export type MediaType = 'audio' | 'image' | 'video';
+
 type Data = {
   center: string;
   date_created: string;
   description: string;
-  media_type: string;
+  media_type: MediaType;
   nasa_id: string;
   title: string;
+  keywords?: string[];
 };
 
 type Link = {
@@ -26,7 +29,7 @@ type Link = {
 export type Item = {
   data: Data[];
   href: string;
-  links: Link[];
+  links?: Link[];
 };
 
 export type Collection = {

@@ -1,28 +1,35 @@
-import { RuxButton, RuxCard } from '@astrouxds/react';
+import { RuxCard, RuxIcon } from '@astrouxds/react';
 import { Link } from 'react-router-dom';
 
 import { Item } from 'types';
 import './media-item.css';
 
 export const MediaItem: React.FC<Item> = ({ data, links }) => {
-  if (!links) return null;
-  const { description, nasa_id, title } = data[0];
-  const { href } = links[0];
+  const { description, nasa_id, title, media_type } = data[0];
 
   return (
-    <RuxCard id='media-item'>
-      <div slot='header'>
-        <div id='media-item-title'>{title}</div>
-      </div>
-      <img width='100%' alt={title} loading='lazy' src={href} />
-      <div id='media-item-description'>
-        <p>{description}</p>
-      </div>
-      <div slot='footer'>
-        <Link to={`/${nasa_id}`}>
-          <RuxButton borderless>View full details...</RuxButton>
-        </Link>
-      </div>
-    </RuxCard>
+    <Link id='media-item-link' to={`/${nasa_id}`}>
+      <RuxCard id='media-item'>
+        <div slot='header'>
+          <div id='media-item-title'>{title}</div>
+        </div>
+        {links ? (
+          <div id='media-item-icon'>
+            <img width='100%' alt={title} loading='lazy' src={links[0].href} />
+            {media_type === 'video' && (
+              <RuxIcon icon='play-arrow' size='6rem' />
+            )}
+          </div>
+        ) : (
+          <div id='media-item-audio'>
+            <RuxIcon size='6rem' icon='audiotrack' />
+          </div>
+        )}
+        <div id='media-item-description'>
+          <p>{description}</p>
+        </div>
+        <footer slot='footer'>View full details...</footer>
+      </RuxCard>
+    </Link>
   );
 };

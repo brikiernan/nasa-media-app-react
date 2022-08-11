@@ -3,11 +3,11 @@ import { Path } from 'types';
 import './breadcrums.css';
 
 type BreadcrumsProps = {
-  nasa_id?: string;
+  id?: string;
   search?: string;
 };
 
-export const Breadcrums: React.FC<BreadcrumsProps> = ({ nasa_id, search }) => (
+export const Breadcrums: React.FC<BreadcrumsProps> = ({ id, search }) => (
   <nav id='breadcrums-nav'>
     <Link to={Path.home}>Home</Link>
     {search && (
@@ -16,10 +16,10 @@ export const Breadcrums: React.FC<BreadcrumsProps> = ({ nasa_id, search }) => (
         <Link to={search}>Media Search</Link>
       </>
     )}
-    {nasa_id && (
+    {id && (
       <>
         <p>{'>'}</p>
-        <p>{nasa_id}</p>
+        <p>{id}</p>
       </>
     )}
   </nav>

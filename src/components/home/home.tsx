@@ -1,34 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RuxTab, RuxTabs } from '@astrouxds/react';
 
-import { Collection, Item } from 'types';
-import { client } from 'lib/client';
-import './home.css';
+import { useAppContext } from 'providers';
 import MediaItem from 'components/media-item';
+import './home.css';
 
-const baseUrl = 'https://images-assets.nasa.gov';
 const tab1 = 'Most Popular';
 const tab2 = 'Recent Uploads';
 
 export const Home: React.FC = () => {
   const [isPopular, setIsPopular] = useState(true);
-  const [popular, setPopular] = useState<Item[]>([]);
-  const [recent, setRecent] = useState<Item[]>([]);
-
-  useEffect(() => {
-    const fetch = async () => {
-      const [rec, pop] = await Promise.all([
-        client.get<Collection>(`${baseUrl}/recent.json`),
-        client.get<Collection>(`${baseUrl}/popular.json`),
-      ]);
-
-      setRecent(rec.collection.items);
-      setPopular(pop.collection.items);
-      console.log(pop);
-    };
-
-    fetch();
-  }, []);
+  const { popular, recent } = useAppContext();
 
   const handleSelected = (event: any) => {
     if (event.target.innerText === tab1) return setIsPopular(true);
@@ -49,11 +31,11 @@ export const Home: React.FC = () => {
       </nav>
       <main className='media-item-container'>
         {isPopular
-          ? popular.map(item => (
-              <MediaItem key={item.data[0].nasa_id} {...item} />
+          ? popular.map((item, i) => (
+              <MediaItem key={item.data[0].nasa_id + i} {...item} />
             ))
-          : recent.map(item => (
-              <MediaItem key={item.data[0].nasa_id} {...item} />
+          : recent.map((item, i) => (
+              <MediaItem key={item.data[0].nasa_id + i} {...item} />
             ))}
       </main>
     </>
