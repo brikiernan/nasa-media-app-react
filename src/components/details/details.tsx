@@ -3,16 +3,25 @@ import { RuxButton, RuxContainer } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
 import { useAssets, useItem } from 'hooks';
-import { setMediaUrl, setSearchPath } from 'lib/utils';
+import { setSearchPath } from 'lib/utils';
 import Breadcrumbs from 'components/breadcrumbs';
 import MediaDisplay from 'components/media-display';
+import Exif from 'components/exif';
 import './details.css';
 
 export const Details: React.FC = () => {
   const { id } = useParams();
   const { items, search } = useAppContext();
+
   const item = useItem(items, id);
-  const assets = useAssets(item?.href, id, item?.data[0].media_type);
+
+  const { exif, large, medium, origin, small, thumb } = useAssets({
+    href: item?.href,
+    id,
+    type: item?.data[0].media_type,
+  });
+
+  const src = medium || large || origin || small || thumb || '';
 
   if (!item) return <div>Loading...</div>;
 
@@ -35,17 +44,11 @@ export const Details: React.FC = () => {
         <RuxContainer>
           <div slot='header' id='details-download'>
             <RuxButton icon='get-app'>DOWNLOAD</RuxButton>
-            <code>{assets.origin || assets.large}</code>
+            <code>{origin || large}</code>
           </div>
           <div id='details-body'>
             <div id='details-left'>
-              <MediaDisplay
-                {...{
-                  media_type,
-                  src: setMediaUrl(nasa_id, media_type, 'medium'),
-                  title,
-                }}
-              />
+              <MediaDisplay {...{ media_type, src, title }} />
             </div>
             <div id='details-right'>
               <div id='details-data'>
@@ -85,17 +88,13 @@ export const Details: React.FC = () => {
               </div>
             </div>
           </div>
-          <div slot='footer'>
-            <RuxButton icon='add' secondary>
-              SHOW EXIF DATA
-            </RuxButton>
-          </div>
+          {exif && (
+            <div slot='footer'>
+              <Exif {...{ exif, nasa_id }} />
+            </div>
+          )}
         </RuxContainer>
       </main>
-
-      <pre style={{ overflow: 'hidden', padding: 24 }}>
-        {JSON.stringify(item, null, 2)}
-      </pre>
     </>
   );
 };

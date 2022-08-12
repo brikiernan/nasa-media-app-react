@@ -8,6 +8,7 @@ type MediaDisplayProps = {
 
 export const MediaDisplay: React.FC<MediaDisplayProps> = props => {
   const { media_type, src, title } = props;
+  if (!src) return null;
 
   switch (media_type) {
     case 'audio': {

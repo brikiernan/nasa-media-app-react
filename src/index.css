@@ -30,3 +30,7 @@ video {
   gap: var(--spacing-8) var(--spacing-4);
   justify-content: space-between;
 }
+
+.hide {
+  display: none;
+}

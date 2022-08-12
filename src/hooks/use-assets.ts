@@ -2,10 +2,16 @@ import { useState, useEffect } from 'react';
 
 import { client } from 'lib/client';
 import { findAsset } from 'lib/utils';
-// import { imagesAssets } from 'lib/const';
+import { imagesAssets } from 'lib/const';
 import { ExifData, MediaType } from 'types';
 
-export const useAssets = (href?: string, id?: string, type?: MediaType) => {
+type AssetsParams = {
+  href?: string;
+  id?: string;
+  type?: MediaType;
+};
+
+export const useAssets = ({ href, id, type }: AssetsParams) => {
   const [assets, setAssets] = useState<string[]>([]);
   const [exif, setExif] = useState<ExifData | null>(null);
 
@@ -13,26 +19,41 @@ export const useAssets = (href?: string, id?: string, type?: MediaType) => {
     if (href && id) {
       const fetch = async () => {
         try {
-          const [results] = await Promise.all([
+          const [results, meta] = await Promise.all([
             client.get<string[]>(href),
-            // client.get(`${imagesAssets}/image/${id}/metadata.json`),
+            client.get<any>(`${imagesAssets}/${type}/${id}/metadata.json`),
           ]);
           setAssets(results);
-          setExif(null);
-          // console.log(Object.entries(meta as any));
+
+          const entries = Object.entries(meta);
+          if (!!entries.length) {
+            let exifObj = {};
+            entries.forEach(entry => {
+              const isExif = entry[0].split(':')[0] === 'EXIF';
+              if (isExif) {
+                const property = entry[0].split(':')[1];
+                const value = entry[1];
+                exifObj = { ...exifObj, [property]: value };
+              }
+            });
+
+            const isExif = Object.keys(exifObj).length > 0;
+            setExif(isExif ? exifObj : null);
+          }
         } catch (error) {
           console.log(error);
         }
       };
       fetch();
     }
-  }, [href, id]);
+  }, [href, id, type]);
 
   return {
     origin: assets.find(asset => findAsset(asset, 'orig', type)) || null,
     large: assets.find(asset => findAsset(asset, 'large', type)) || null,
     medium: assets.find(asset => findAsset(asset, 'medium', type)) || null,
     small: assets.find(asset => findAsset(asset, 'small', type)) || null,
+    thumb: assets.find(asset => findAsset(asset, 'thumb')) || null,
     exif,
   };
 };
