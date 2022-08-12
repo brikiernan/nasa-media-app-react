@@ -1,10 +1,18 @@
 #exif-card {
-  margin-top: var(--spacing-6);
+  margin-top: var(--spacing-0);
   margin-bottom: var(--spacing-2);
   max-width: 46rem;
   min-width: 20rem;
   text-align: center;
   --body-padding: var(--spacing-0);
+  overflow: hidden;
+  max-height: 0;
+}
+
+#exif-card.show {
+  margin-top: var(--spacing-6);
+  max-height: inherit;
+  overflow: inherit;
 }
 
 #exif-card rux-table-cell {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   RuxButton,
   RuxCard,
@@ -18,14 +18,25 @@ type ExifProps = {
 
 export const Exif: React.FC<ExifProps> = props => {
   const [isShowExif, setIsShowExif] = useState(false);
-  const handleShowExif = () => setIsShowExif(prev => !prev);
+  const handleShowExif = async () => setIsShowExif(prev => !prev);
+
+  useEffect(() => {
+    if (isShowExif) {
+      const top = document.body.scrollHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }, [isShowExif]);
 
   return (
     <>
-      <RuxButton icon='add' secondary onClick={handleShowExif}>
+      <RuxButton
+        icon={isShowExif ? 'remove' : 'add'}
+        secondary
+        onClick={handleShowExif}
+      >
         SHOW EXIF DATA
       </RuxButton>
-      <RuxCard id='exif-card' className={isShowExif ? '' : 'hide'}>
+      <RuxCard id='exif-card' className={isShowExif ? 'show' : ''}>
         <div slot='header'>EXIF data for {props.nasa_id}</div>
         <RuxTable>
           <RuxTableBody>
