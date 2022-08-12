@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { RuxButton, RuxContainer } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
-import { useItem } from 'hooks';
+import { useAssets, useItem } from 'hooks';
 import { setMediaUrl } from 'lib/utils';
 import Breadcrumbs from 'components/breadcrumbs';
 import MediaDisplay from 'components/media-display';
@@ -12,6 +12,7 @@ export const Details: React.FC = () => {
   const { id } = useParams();
   const { items, search } = useAppContext();
   const item = useItem(items, id);
+  const assets = useAssets(item?.href, id, item?.data[0].media_type);
 
   if (!item) return <div>Loading...</div>;
 
@@ -23,8 +24,10 @@ export const Details: React.FC = () => {
     nasa_id,
     title,
     keywords,
-  } = item.data[0];
-  const src = setMediaUrl(nasa_id, media_type);
+    location,
+    photographer,
+  } = item?.data[0];
+  const src = setMediaUrl(nasa_id, media_type, 'medium');
 
   return (
     <>
@@ -33,7 +36,7 @@ export const Details: React.FC = () => {
         <RuxContainer>
           <div slot='header' id='details-download'>
             <RuxButton icon='get-app'>DOWNLOAD</RuxButton>
-            <code>{src}</code>
+            <code>{assets.origin || assets.large}</code>
           </div>
           <div id='details-body'>
             <div id='details-left'>
@@ -42,12 +45,31 @@ export const Details: React.FC = () => {
             <div id='details-right'>
               <div id='details-data'>
                 <h3>{title}</h3>
-                <p>NASA ID: {nasa_id}</p>
+                <p>
+                  <b>NASA ID:</b> <span id='details-nasa-id'>{nasa_id}</span>
+                </p>
                 <p id='details-description'>{description}</p>
-                <p>Date Created: {date_created}</p>
-                <p>Center: {center}</p>
+                <p>
+                  <b>Date Created:</b>{' '}
+                  {new Date(date_created).toLocaleDateString()}
+                </p>
+                <p>
+                  <b>Center:</b> {center}
+                </p>
                 {keywords && (
-                  <p>Keywords: {keywords.map(keyword => keyword)}</p>
+                  <p>
+                    <b>Keywords:</b> {keywords.map(keyword => keyword)}
+                  </p>
+                )}
+                {location && (
+                  <p>
+                    <b>Location:</b> {location}
+                  </p>
+                )}
+                {photographer && (
+                  <p>
+                    <b>Photographer:</b> {photographer}
+                  </p>
                 )}
               </div>
             </div>

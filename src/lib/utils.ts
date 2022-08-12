@@ -11,3 +11,10 @@ export const setMediaUrl = (id: string, type: MediaType, size?: string) => {
   if (type === 'video') return base + '.mp4';
   return base + '.jpg';
 };
+
+export const findAsset = (asset: string, size: string, type?: MediaType) => {
+  const fileName = asset.split('~')[1];
+  if (type === 'audio') return fileName === size + '.mp3';
+  if (type === 'video') return fileName === size + '.mp4';
+  return fileName === size + '.jpg';
+};

@@ -33,6 +33,10 @@
   gap: var(--spacing-2);
 }
 
+#details-data b {
+  margin-right: var(--spacing-2);
+}
+
 #details-description {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -40,4 +44,9 @@
   -webkit-line-clamp: 10;
   line-clamp: 4;
   -webkit-box-orient: vertical;
+}
+
+#details-nasa-id {
+  padding: var(--spacing-1) var(--spacing-3);
+  background-color: var(--color-background-base-selected);
 }
