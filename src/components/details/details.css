@@ -49,4 +49,10 @@
 #details-nasa-id {
   padding: var(--spacing-1) var(--spacing-3);
   background-color: var(--color-background-base-selected);
+  border-radius: var(--radius-base);
+}
+
+#details-keyword {
+  color: var(--color-text-primary);
+  margin-right: 1ch;
 }

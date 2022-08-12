@@ -3,7 +3,7 @@ import { RuxButton, RuxContainer } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
 import { useAssets, useItem } from 'hooks';
-import { setMediaUrl } from 'lib/utils';
+import { setMediaUrl, setSearchPath } from 'lib/utils';
 import Breadcrumbs from 'components/breadcrumbs';
 import MediaDisplay from 'components/media-display';
 import './details.css';
@@ -27,7 +27,6 @@ export const Details: React.FC = () => {
     location,
     photographer,
   } = item?.data[0];
-  const src = setMediaUrl(nasa_id, media_type, 'medium');
 
   return (
     <>
@@ -40,7 +39,13 @@ export const Details: React.FC = () => {
           </div>
           <div id='details-body'>
             <div id='details-left'>
-              <MediaDisplay {...{ media_type, src, title }} />
+              <MediaDisplay
+                {...{
+                  media_type,
+                  src: setMediaUrl(nasa_id, media_type, 'medium'),
+                  title,
+                }}
+              />
             </div>
             <div id='details-right'>
               <div id='details-data'>
@@ -54,11 +59,17 @@ export const Details: React.FC = () => {
                   {new Date(date_created).toLocaleDateString()}
                 </p>
                 <p>
-                  <b>Center:</b> {center}
+                  <b>Center:</b> <a href={setSearchPath(center)}>{center}</a>
                 </p>
                 {keywords && (
                   <p>
-                    <b>Keywords:</b> {keywords.map(keyword => keyword)}
+                    <b>Keywords:</b>{' '}
+                    {keywords.map(keyword => (
+                      <a key={keyword} href={setSearchPath(keyword)}>
+                        {keyword}
+                        <span id='details-keyword'>,</span>
+                      </a>
+                    ))}
                   </p>
                 )}
                 {location && (

@@ -18,3 +18,7 @@ export const findAsset = (asset: string, size: string, type?: MediaType) => {
   if (type === 'video') return fileName === size + '.mp4';
   return fileName === size + '.jpg';
 };
+
+export const setSearchPath = (query: string) => {
+  return `/search?q=${query}`;
+};
