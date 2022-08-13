@@ -10,9 +10,9 @@ export const MediaItem: React.FC<Item> = ({ data, links }) => {
   return (
     <Link id='media-item-link' to={`/${nasa_id}`}>
       <RuxCard id='media-item'>
-        <div slot='header'>
+        {/* <div slot='header'>
           <div id='media-item-title'>{title}</div>
-        </div>
+        </div> */}
         {links ? (
           <div id='media-item-icon'>
             <img width='100%' alt={title} loading='lazy' src={links[0].href} />
@@ -25,6 +25,9 @@ export const MediaItem: React.FC<Item> = ({ data, links }) => {
             <RuxIcon size='6rem' icon='audiotrack' />
           </div>
         )}
+        <div id='media-item-title'>
+          <h3>{title}</h3>
+        </div>
         <div id='media-item-description'>
           <p>{description}</p>
         </div>
