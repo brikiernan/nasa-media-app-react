@@ -28,19 +28,20 @@
 }
 
 #media-item-title {
-  height: 3rem;
-  padding: var(--spacing-6) var(--spacing-6) var(--spacing-4);
+  padding: var(--spacing-0) var(--spacing-6);
+  margin-top: var(--spacing-6);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
   -webkit-box-orient: vertical;
 }
 
 #media-item-description {
   height: 4.75rem;
   padding: var(--spacing-0) var(--spacing-6);
+  margin-top: var(--spacing-4);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
