@@ -48,13 +48,16 @@ export const Details: React.FC = () => {
       <Breadcrumbs {...{ id, search }} />
       <main id='details-container'>
         <RuxContainer>
-          <MediaDownload {...sizeAssets} href={original || large} />
+          <div id='details-header' slot='header'>
+            <code>{original || large}</code>
+          </div>
           <div id='details-body'>
             <div id='details-left'>
               <MediaDisplay {...{ media_type, src, title }} />
             </div>
             <div id='details-right'>
               <div id='details-data'>
+                <MediaDownload {...sizeAssets} href={original || large} />
                 <h3>{title}</h3>
                 <p>
                   <b>NASA ID:</b> <span id='details-nasa-id'>{nasa_id}</span>

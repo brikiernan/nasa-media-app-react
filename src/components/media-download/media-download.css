@@ -1,13 +1,3 @@
 #media-download {
-  display: flex;
-  gap: var(--spacing-2);
-  align-items: center;
   font-size: var(--font-size-base);
-}
-
-#media-download > code {
-  font-size: var(--font-size-xs);
-  background-color: var(--color-background-base-default);
-  padding: var(--spacing-2) var(--spacing-4);
-  border-radius: var(--radius-base);
 }

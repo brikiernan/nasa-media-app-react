@@ -57,7 +57,7 @@ export const MediaDownload: React.FC<MediaDownloadProps> = props => {
   ];
 
   return (
-    <div slot='header' id='media-download'>
+    <div id='media-download'>
       <RuxPopUpMenu open={isOpen}>
         <RuxButton onClick={onOpen} icon='expand-more' slot='trigger' secondary>
           DOWNLOAD
@@ -77,7 +77,6 @@ export const MediaDownload: React.FC<MediaDownloadProps> = props => {
           ))}
         </RuxMenu>
       </RuxPopUpMenu>
-      <code>{href}</code>
     </div>
   );
 };
