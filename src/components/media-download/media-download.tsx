@@ -60,7 +60,7 @@ export const MediaDownload: React.FC<MediaDownloadProps> = props => {
     <div id='media-download'>
       <RuxPopUpMenu open={isOpen}>
         <RuxButton onClick={onOpen} icon='expand-more' slot='trigger' secondary>
-          DOWNLOAD
+          Download Media
         </RuxButton>
         <RuxMenu>
           {items.map(({ href, label, title }, i) => (
