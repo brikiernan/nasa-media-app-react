@@ -30,13 +30,7 @@ export const setHttps = (url: string) => {
   return url;
 };
 
-type SetCookieParams = {
-  name: string;
-  value: any;
-};
-
-export const setCookie = (params: SetCookieParams) => {
-  const { name, value } = params;
+export const setCookie = (name: string, value: any) => {
   const cookie = `${name}=${value};`;
   document.cookie = cookie;
   if (dev) console.log('[SET COOKIE]', cookie);
