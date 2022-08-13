@@ -1,5 +1,5 @@
 import { Item, MediaType } from 'types';
-import { imagesAssets } from './const';
+import { dev, imagesAssets } from './const';
 
 export const findItem = (items: Item[], id?: string) => {
   return items.find(({ data }) => data[0].nasa_id === id);
@@ -28,4 +28,35 @@ export const setHttps = (url: string) => {
     return url.split(':').join('s:');
   }
   return url;
+};
+
+type SetCookieParams = {
+  name: string;
+  value: any;
+};
+
+export const setCookie = (params: SetCookieParams) => {
+  const { name, value } = params;
+  const cookie = `${name}=${value};`;
+  document.cookie = cookie;
+  if (dev) console.log('[SET COOKIE]', cookie);
+};
+
+export const getCookie = (name: string) => {
+  const splitCookieArr = document.cookie.split('; ');
+  const row = splitCookieArr.find(row => row.startsWith(`${name}=`));
+  if (!row) return;
+  const value = row.split('=')[1];
+  if (dev) console.log(`[GET COOKIE] ${name} =`, value);
+  return value;
+};
+
+export const debounce = (func: Function, timeout = 300) => {
+  let timer: NodeJS.Timeout;
+  return (...args: unknown[]) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
 };

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { RuxTab, RuxTabs } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
+import { useScroll } from 'hooks';
 import MediaItem from 'components/media-item';
 import './home.css';
 
@@ -11,6 +12,7 @@ const tab2 = 'Recent Uploads';
 export const Home: React.FC = () => {
   const [isPopular, setIsPopular] = useState(true);
   const { popular, recent } = useAppContext();
+  useScroll('home-scroll-position');
 
   const handleSelected = (event: any) => {
     if (event.target.innerText === tab1) return setIsPopular(true);
