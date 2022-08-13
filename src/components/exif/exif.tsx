@@ -34,7 +34,7 @@ export const Exif: React.FC<ExifProps> = props => {
         secondary
         onClick={handleShowExif}
       >
-        SHOW EXIF DATA
+        Show EXIF Data
       </RuxButton>
       <RuxCard id='exif-card' className={isShowExif ? 'show' : ''}>
         <div slot='header'>EXIF data for {props.nasa_id}</div>
