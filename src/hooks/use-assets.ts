@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import { client } from 'lib/client';
-import { findAsset } from 'lib/utils';
-import { imagesAssets } from 'lib/const';
 import { ExifData, MediaType } from 'types';
+import { client } from 'lib/client';
+import { findAsset, setHttps } from 'lib/utils';
+import { imagesAssets } from 'lib/const';
 
 type AssetsParams = {
   href?: string;
@@ -23,7 +23,8 @@ export const useAssets = ({ href, id, type }: AssetsParams) => {
             client.get<string[]>(href),
             client.get<any>(`${imagesAssets}/${type}/${id}/metadata.json`),
           ]);
-          setAssets(results);
+
+          setAssets(results.map(setHttps));
 
           const entries = Object.entries(meta);
           if (!!entries.length) {
