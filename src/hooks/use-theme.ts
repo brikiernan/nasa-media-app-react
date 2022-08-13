@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import useLocalStorage from './use-local-storage';
 
 const darkClass = 'dark-theme';
-const darkIcon = 'flare';
+const darkIcon = 'brightness-3';
 const lightClass = 'light-theme';
 const lightIcon = 'wb-sunny';
 const initialTheme = { className: darkClass, icon: darkIcon };

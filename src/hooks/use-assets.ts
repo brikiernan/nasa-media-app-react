@@ -50,7 +50,7 @@ export const useAssets = ({ href, id, type }: AssetsParams) => {
   }, [href, id, type]);
 
   return {
-    origin: assets.find(asset => findAsset(asset, 'orig', type)) || null,
+    original: assets.find(asset => findAsset(asset, 'orig', type)) || null,
     large: assets.find(asset => findAsset(asset, 'large', type)) || null,
     medium: assets.find(asset => findAsset(asset, 'medium', type)) || null,
     small: assets.find(asset => findAsset(asset, 'small', type)) || null,

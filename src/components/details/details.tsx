@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { RuxButton, RuxContainer } from '@astrouxds/react';
+import { RuxContainer, RuxIndeterminateProgress } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
 import { useAssets, useItem } from 'hooks';
 import { setSearchPath } from 'lib/utils';
 import Breadcrumbs from 'components/breadcrumbs';
+import MediaDownload from 'components/media-download';
 import MediaDisplay from 'components/media-display';
 import Exif from 'components/exif';
 import './details.css';
@@ -12,18 +13,23 @@ import './details.css';
 export const Details: React.FC = () => {
   const { id } = useParams();
   const { items, search } = useAppContext();
-
   const item = useItem(items, id);
 
-  const { exif, large, medium, origin, small, thumb } = useAssets({
+  const { exif, thumb, ...sizeAssets } = useAssets({
     href: item?.href,
     id,
     type: item?.data[0].media_type,
   });
 
-  const src = medium || large || origin || small || thumb || '';
+  const { large, medium, original, small } = sizeAssets;
+  const src = medium || large || original || small || thumb || '';
 
-  if (!item) return <div>Loading...</div>;
+  if (!item)
+    return (
+      <div className='flex-center'>
+        <RuxIndeterminateProgress />
+      </div>
+    );
 
   const {
     center,
@@ -42,10 +48,7 @@ export const Details: React.FC = () => {
       <Breadcrumbs {...{ id, search }} />
       <main id='details-container'>
         <RuxContainer>
-          <div slot='header' id='details-download'>
-            <RuxButton icon='get-app'>DOWNLOAD</RuxButton>
-            <code>{origin || large}</code>
-          </div>
+          <MediaDownload {...sizeAssets} href={original || large} />
           <div id='details-body'>
             <div id='details-left'>
               <MediaDisplay {...{ media_type, src, title }} />
@@ -77,7 +80,8 @@ export const Details: React.FC = () => {
                 )}
                 {location && (
                   <p>
-                    <b>Location:</b> {location}
+                    <b>Location:</b>{' '}
+                    <a href={setSearchPath(location)}>{location}</a>
                   </p>
                 )}
                 {photographer && (

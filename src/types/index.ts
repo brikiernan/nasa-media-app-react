@@ -105,3 +105,10 @@ export type ExifData = {
   XResolution?: number;
   YResolution?: number;
 };
+
+export type Sizes = {
+  small: string | null;
+  medium: string | null;
+  large: string | null;
+  original: string | null;
+};
