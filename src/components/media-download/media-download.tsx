@@ -67,6 +67,7 @@ export const MediaDownload: React.FC<MediaDownloadProps> = props => {
             <Fragment key={href || i}>
               {href && (
                 <RuxMenuItem
+                  selected={false}
                   onRuxmenuitemselected={handleDownload}
                   value={href}
                 >
