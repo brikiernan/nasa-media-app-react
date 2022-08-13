@@ -6,6 +6,7 @@ import { imagesApi, imagesAssets } from 'lib/const';
 import { client } from 'lib/client';
 
 type AppContextProps = {
+  isPopular: boolean;
   items: Item[];
   popular: Item[];
   recent: Item[];
@@ -13,9 +14,11 @@ type AppContextProps = {
   results: Item[];
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setIsPopular: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const AppContext = createContext<AppContextProps>({
+  isPopular: true,
   items: [],
   popular: [],
   recent: [],
@@ -23,6 +26,7 @@ const AppContext = createContext<AppContextProps>({
   results: [],
   search: '',
   setSearch: () => undefined,
+  setIsPopular: () => undefined,
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -38,6 +42,7 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
   const [recent, setRecent] = useState<Item[]>([]);
   const [results, setResults] = useState<Item[]>([]);
   const [defaultItemsLength, setDefaultItemsLength] = useState(-1);
+  const [isPopular, setIsPopular] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
@@ -85,6 +90,7 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
   // useEffect(() => console.log('[ITEMS]', items), [items]);
 
   const value: AppContextProps = {
+    isPopular,
     items,
     popular,
     recent,
@@ -92,6 +98,7 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
     results,
     search,
     setSearch,
+    setIsPopular,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { RuxTab, RuxTabs } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
@@ -10,8 +9,7 @@ const tab1 = 'Most Popular';
 const tab2 = 'Recent Uploads';
 
 export const Home: React.FC = () => {
-  const [isPopular, setIsPopular] = useState(true);
-  const { popular, recent } = useAppContext();
+  const { isPopular, popular, recent, setIsPopular } = useAppContext();
   useScroll('home-scroll-position');
 
   const handleSelected = (event: any) => {
