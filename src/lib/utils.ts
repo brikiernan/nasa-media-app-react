@@ -1,5 +1,5 @@
 import { Item, MediaType } from 'types';
-import { dev, imagesAssets } from './const';
+import { imagesAssets } from './const';
 
 export const findItem = (items: Item[], id?: string) => {
   return items.find(({ data }) => data[0].nasa_id === id);
@@ -33,7 +33,6 @@ export const setHttps = (url: string) => {
 export const setCookie = (name: string, value: any) => {
   const cookie = `${name}=${value};`;
   document.cookie = cookie;
-  if (dev) console.log('[SET COOKIE]', cookie);
 };
 
 export const getCookie = (name: string) => {
@@ -41,7 +40,6 @@ export const getCookie = (name: string) => {
   const row = splitCookieArr.find(row => row.startsWith(`${name}=`));
   if (!row) return;
   const value = row.split('=')[1];
-  if (dev) console.log(`[GET COOKIE] ${name} =`, value);
   return value;
 };
 
