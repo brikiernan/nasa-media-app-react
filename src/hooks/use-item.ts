@@ -7,6 +7,7 @@ import { client } from 'lib/client';
 
 export const useItem = (items: Item[], id?: string) => {
   const [item, setItem] = useState<Item | null>(findItem(items, id) || null);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     if (item) return;
@@ -15,8 +16,11 @@ export const useItem = (items: Item[], id?: string) => {
       try {
         const ENDPOINT = `${imagesApi}/search?q=${id}`;
         const response = await client.get<Collection>(ENDPOINT);
-        setItem(response.collection.items[0]);
+        const fetchedItem = response.collection.items[0];
+        if (fetchedItem) return setItem(fetchedItem);
+        setNotFound(true);
       } catch (error) {
+        setNotFound(true);
         console.log(error);
       }
     };
@@ -24,5 +28,5 @@ export const useItem = (items: Item[], id?: string) => {
     fetch();
   }, [id, item]);
 
-  return item;
+  return { item, notFound };
 };

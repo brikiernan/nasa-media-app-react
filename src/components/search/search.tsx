@@ -12,7 +12,11 @@ export const Search: React.FC = () => {
     <>
       <Breadcrumbs {...{ search }} />
       <div className='search-results'>
-        <h2>Showing results for "{result}"</h2>
+        {!!results.length ? (
+          <h2>Showing results for "{result}"</h2>
+        ) : (
+          <h2>No results found.</h2>
+        )}
       </div>
       <main className='media-item-container'>
         {results.map((item, i) => (

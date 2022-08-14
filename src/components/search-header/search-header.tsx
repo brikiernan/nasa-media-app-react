@@ -26,6 +26,7 @@ export const SearchHeader: React.FC = () => {
     navigate(search);
     setSearch(search);
     setQuery('');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLRuxInputElement>) => {

@@ -4,6 +4,7 @@ import { RuxContainer, RuxIndeterminateProgress } from '@astrouxds/react';
 import { useAppContext } from 'providers';
 import { useAssets, useItem } from 'hooks';
 import { setSearchPath } from 'lib/utils';
+import NotFound from 'components/not-found';
 import Breadcrumbs from 'components/breadcrumbs';
 import MediaDownload from 'components/media-download';
 import MediaDisplay from 'components/media-display';
@@ -13,7 +14,7 @@ import './details.css';
 export const Details: React.FC = () => {
   const { id } = useParams();
   const { items, search } = useAppContext();
-  const item = useItem(items, id);
+  const { item, notFound } = useItem(items, id);
 
   const { exif, thumb, ...sizeAssets } = useAssets({
     href: item?.href,
@@ -24,12 +25,15 @@ export const Details: React.FC = () => {
   const { large, medium, original, small } = sizeAssets;
   const src = medium || large || original || small || thumb || '';
 
-  if (!item)
+  if (notFound) return <NotFound />;
+
+  if (!item) {
     return (
       <div className='flex-center'>
         <RuxIndeterminateProgress />
       </div>
     );
+  }
 
   const {
     center,

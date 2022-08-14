@@ -41,3 +41,9 @@ rux-select {
   justify-content: center;
   align-items: center;
 }
+
+.vertical-divider {
+  border-left: 1px solid var(--color-text-primary);
+  height: var(--spacing-8);
+  margin: var(--spacing-0) var(--spacing-3);
+}
