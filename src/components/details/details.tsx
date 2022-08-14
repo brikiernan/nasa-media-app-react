@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { RuxContainer, RuxIndeterminateProgress } from '@astrouxds/react';
+import { RuxContainer } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
 import { useAssets, useItem } from 'hooks';
 import { setSearchPath } from 'lib/utils';
 import NotFound from 'components/not-found';
+import Loading from 'components/loading';
 import Breadcrumbs from 'components/breadcrumbs';
 import MediaDownload from 'components/media-download';
 import MediaDisplay from 'components/media-display';
@@ -26,14 +27,7 @@ export const Details: React.FC = () => {
   const src = medium || large || original || small || thumb || '';
 
   if (notFound) return <NotFound />;
-
-  if (!item) {
-    return (
-      <div className='flex-center'>
-        <RuxIndeterminateProgress />
-      </div>
-    );
-  }
+  if (!item) return <Loading />;
 
   const {
     center,
@@ -53,7 +47,7 @@ export const Details: React.FC = () => {
       <main id='details-container'>
         <RuxContainer>
           <div id='details-header' slot='header'>
-            <code>{original || large}</code>
+            <code>{original || large || medium || small}</code>
           </div>
           <div id='details-body'>
             <div id='details-left'>
