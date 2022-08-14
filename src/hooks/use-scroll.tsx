@@ -16,11 +16,8 @@ export const useScroll = (cookieName: string) => {
 
   useEffect(() => {
     const debounced = debounce(() => setCookie(cookieName, window.scrollY));
-
     window.addEventListener('scroll', debounced);
 
-    return () => {
-      window.removeEventListener('scroll', debounced);
-    };
+    return () => window.removeEventListener('scroll', debounced);
   }, [cookieName]);
 };
