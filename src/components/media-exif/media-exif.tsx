@@ -9,14 +9,14 @@ import {
 } from '@astrouxds/react';
 
 import { ExifData } from 'types';
-import './exif.css';
+import './media-exif.css';
 
-type ExifProps = {
+type MediaExifProps = {
   exif: ExifData;
   nasa_id: string;
 };
 
-export const Exif: React.FC<ExifProps> = props => {
+export const MediaExif: React.FC<MediaExifProps> = props => {
   const [isShowExif, setIsShowExif] = useState(false);
   const handleShowExif = async () => setIsShowExif(prev => !prev);
 
@@ -36,7 +36,7 @@ export const Exif: React.FC<ExifProps> = props => {
       >
         Show EXIF Data
       </RuxButton>
-      <RuxCard id='exif-card' className={isShowExif ? 'show' : ''}>
+      <RuxCard id='media-exif-card' className={isShowExif ? 'show' : ''}>
         <div slot='header'>EXIF data for {props.nasa_id}</div>
         <RuxTable>
           <RuxTableBody>

@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { AppProvider } from 'providers';
 import { Path } from 'types';
+import { AppProvider } from 'providers';
 import AppLayout from 'layout/app-layout';
-import Details from 'components/details';
 import Home from 'components/home';
 import Search from 'components/search';
+import Details from 'components/details';
 
 const App: React.FC = () => (
   <BrowserRouter>

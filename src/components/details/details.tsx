@@ -9,7 +9,7 @@ import Loading from 'components/loading';
 import Breadcrumbs from 'components/breadcrumbs';
 import MediaDownload from 'components/media-download';
 import MediaDisplay from 'components/media-display';
-import Exif from 'components/exif';
+import MediaExif from 'components/media-exif';
 import './details.css';
 
 export const Details: React.FC = () => {
@@ -95,7 +95,7 @@ export const Details: React.FC = () => {
           </div>
           {exif && (
             <div slot='footer'>
-              <Exif {...{ exif, nasa_id }} />
+              <MediaExif {...{ exif, nasa_id }} />
             </div>
           )}
         </RuxContainer>

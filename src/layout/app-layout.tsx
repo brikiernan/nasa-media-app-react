@@ -1,13 +1,11 @@
-import SearchHeader from 'components/search-header';
 import { Outlet } from 'react-router-dom';
+import SearchHeader from 'components/search-header';
 
-const AppLayout: React.FC = () => {
-  return (
-    <>
-      <SearchHeader />
-      <Outlet />
-    </>
-  );
-};
+const AppLayout: React.FC = () => (
+  <>
+    <SearchHeader />
+    <Outlet />
+  </>
+);
 
 export default AppLayout;
