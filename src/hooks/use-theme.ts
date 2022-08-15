@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import useLocalStorage from './use-local-storage';
 
 const darkClass = 'dark-theme';
@@ -10,21 +10,17 @@ const initialTheme = { className: darkClass, icon: darkIcon };
 export const useTheme = () => {
   const [theme, setTheme] = useLocalStorage('astro-theme', initialTheme);
 
-  const onChange = () => {
+  const onChange = useCallback(() => {
     setTheme(prev => {
       if (prev.className === darkClass) {
         return { className: lightClass, icon: lightIcon };
       }
       return initialTheme;
     });
-  };
+  }, [setTheme]);
 
   useEffect(() => {
-    let body = document.querySelector('body');
-
-    if (body) {
-      body.className = theme.className;
-    }
+    document.body.className = theme.className;
   }, [theme]);
 
   return { icon: theme.icon, onChange };
