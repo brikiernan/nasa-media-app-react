@@ -17,18 +17,18 @@ export const Home: React.FC = () => {
   if (isLoading) return <Loading />;
 
   const handleSelected = (event: any) => {
-    if (event.target.innerText === tab1) return setIsPopular(true);
+    if (event.target.id === tab1) return setIsPopular(true);
     setIsPopular(false);
   };
 
   return (
     <>
       <nav id='home-tabs'>
-        <RuxTabs onRuxselected={e => console.log(e.target)}>
-          <RuxTab onClick={e => handleSelected} selected={isPopular}>
+        <RuxTabs>
+          <RuxTab id={tab1} onClick={handleSelected} selected={isPopular}>
             {tab1}
           </RuxTab>
-          <RuxTab onClick={handleSelected} selected={!isPopular}>
+          <RuxTab id={tab2} onClick={handleSelected} selected={!isPopular}>
             {tab2}
           </RuxTab>
         </RuxTabs>
