@@ -71,18 +71,15 @@ export const MediaFilter: React.FC = () => {
             <RuxTableHeaderCell>Narrow By Year</RuxTableHeaderCell>
           </RuxTableHeaderRow>
         </RuxTableHeader>
-        <RuxTableBody>
-          <RuxTableRow>
-            <RuxTableCell>
-              <div id='media-filter-years'>
-                <p>{params.year_start}</p>
-                <p>{params.year_end}</p>
-              </div>
-              <DualRange />
-            </RuxTableCell>
-          </RuxTableRow>
-        </RuxTableBody>
       </RuxTable>
+      <div id='media-filer-range-container'>
+        <div id='media-filter-range-years'>
+          <p>{params.year_start}</p>
+          <p>{params.year_end}</p>
+        </div>
+        <DualRange />
+      </div>
+
       {showUpdate && (
         <RuxButton onClick={handleClick} slot='footer'>
           Update Results

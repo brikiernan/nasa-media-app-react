@@ -12,8 +12,11 @@
   gap: var(--spacing-3);
 }
 
-#media-filter-years {
+#media-filer-range-container {
+  padding: var(--spacing-6);
+}
+
+#media-filter-range-years {
   display: flex;
   justify-content: space-between;
-  padding-top: var(--spacing-4);
 }

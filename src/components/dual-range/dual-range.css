@@ -9,7 +9,7 @@
   height: var(--spacing-1);
   width: 100%;
   position: absolute;
-  background-color: var(--color-background-interactive-default);
+  background-color: var(--color-text-secondary);
   pointer-events: none;
 }
 
@@ -31,4 +31,10 @@
 
 #dual-range input[type='range']::-webkit-slider-thumb:hover {
   box-shadow: 0 0 0 var(--spacing-050) var(--color-background-interactive-hover);
+}
+
+#dual-range-slider-overlay {
+  position: absolute;
+  height: var(--spacing-1);
+  background-color: var(--color-background-interactive-default);
 }
