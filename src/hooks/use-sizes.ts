@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Sizes } from 'types';
+import type { Sizes } from 'types';
 
 export const useSizes = (params: Sizes) => {
   const [small, setSmall] = useState('');

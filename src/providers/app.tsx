@@ -1,52 +1,66 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Children, Collection, Item, Path } from 'types';
-import { imagesApi, imagesAssets } from 'lib/const';
+import type { Children, Collection, Item } from 'types';
+import { imagesApi, imagesAssets, initialParams, Path } from 'lib/const';
 import { client } from 'lib/client';
 
+type Params = typeof initialParams;
+
 type AppContextProps = {
+  isLoading: boolean;
   isPopular: boolean;
   items: Item[];
+  pages: number;
+  params: Params;
   popular: Item[];
   recent: Item[];
-  result: string;
   results: Item[];
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
   setIsPopular: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const AppContext = createContext<AppContextProps>({
+  isLoading: false,
   isPopular: true,
   items: [],
+  pages: 0,
+  params: initialParams,
   popular: [],
   recent: [],
-  result: '',
   results: [],
   search: '',
-  setSearch: () => undefined,
   setIsPopular: () => undefined,
+  setSearch: () => undefined,
 });
 
 export const useAppContext = () => useContext(AppContext);
 
 export const AppProvider: React.FC<Children> = ({ children }) => {
   const location = useLocation();
-  const isSearch = !!location.search;
-  const query = isSearch ? Path.search + location.search : '';
-  const result = !!query ? query.split('=')[1].split('%20').join(' ') : '';
-  const [search, setSearch] = useState(query);
+  const [search, setSearch] = useState('');
   const [items, setItems] = useState<Item[]>([]);
   const [popular, setPopular] = useState<Item[]>([]);
   const [recent, setRecent] = useState<Item[]>([]);
   const [results, setResults] = useState<Item[]>([]);
   const [defaultItemsLength, setDefaultItemsLength] = useState(-1);
   const [isPopular, setIsPopular] = useState(true);
+  const [params, setParams] = useState(initialParams);
+  const [pages, setPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const isSearch = !!location.search;
+    if (isSearch) {
+      setSearch(Path.search + location.search);
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const fetch = async () => {
       try {
+        setIsLoading(true);
         const [recent, popular] = await Promise.all([
           client.get<Collection>(`${imagesAssets}/recent.json`),
           client.get<Collection>(`${imagesAssets}/popular.json`),
@@ -59,6 +73,8 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
         setDefaultItemsLength(items.length);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -69,6 +85,7 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
     if (!!search) {
       const fetch = async () => {
         try {
+          setIsLoading(true);
           const results = await client.get<Collection>(imagesApi + search);
 
           setItems(prev => [
@@ -77,28 +94,38 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
           ]);
 
           setResults(results.collection.items);
-          // console.log('[RESULTS]', results);
+          setPages(results.collection.metadata?.total_hits || 0);
         } catch (error) {
           console.log(error);
+        } finally {
+          setIsLoading(false);
         }
       };
 
       fetch();
     }
-  }, [defaultItemsLength, search]);
+  }, [defaultItemsLength, search, location]);
 
-  // useEffect(() => console.log('[ITEMS]', items), [items]);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search).entries();
+
+    for (const urlParam of urlParams) {
+      setParams(prev => ({ ...prev, [urlParam[0]]: urlParam[1] }));
+    }
+  }, [location.search]);
 
   const value: AppContextProps = {
+    isLoading,
     isPopular,
     items,
+    pages: Math.ceil(pages / 100),
+    params,
     popular,
     recent,
-    result,
     results,
     search,
-    setSearch,
     setIsPopular,
+    setSearch,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

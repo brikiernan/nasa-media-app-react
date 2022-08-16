@@ -1,4 +1,4 @@
-import { Item, MediaType } from 'types';
+import type { Item, MediaType } from 'types';
 import { imagesAssets } from './const';
 
 export const findItem = (items: Item[], id?: string) => {

@@ -6,7 +6,7 @@ import {
   RuxPopUpMenu,
 } from '@astrouxds/react';
 
-import { Sizes } from 'types';
+import type { Sizes } from 'types';
 import { useSizes } from 'hooks';
 import './media-download.css';
 

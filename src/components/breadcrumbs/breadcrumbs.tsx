@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Path } from 'types';
+
+import { Path } from 'lib/const';
 import './breadcrumbs.css';
 
 type BreadcrumbsProps = {

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Path } from 'types';
 import { AppProvider } from 'providers';
+import { Path } from 'lib/const';
 import AppLayout from 'layout/app-layout';
 import Home from 'components/home';
 import Search from 'components/search';

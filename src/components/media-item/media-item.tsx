@@ -1,7 +1,7 @@
 import { RuxCard, RuxIcon } from '@astrouxds/react';
 import { Link } from 'react-router-dom';
 
-import { Item } from 'types';
+import type { Item } from 'types';
 import './media-item.css';
 
 export const MediaItem: React.FC<Item> = ({ data, links }) => {
@@ -13,13 +13,11 @@ export const MediaItem: React.FC<Item> = ({ data, links }) => {
         {links ? (
           <div id='media-item-icon'>
             <img width='100%' alt={title} loading='lazy' src={links[0].href} />
-            {media_type === 'video' && (
-              <RuxIcon icon='play-arrow' size='6rem' />
-            )}
+            {media_type === 'video' && <RuxIcon icon='videocam' size='6rem' />}
           </div>
         ) : (
           <div id='media-item-audio'>
-            <RuxIcon size='6rem' icon='audiotrack' />
+            <RuxIcon size='6rem' icon='mic' />
           </div>
         )}
         <div id='media-item-title'>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Collection, Item } from 'types';
+import type { Collection, Item } from 'types';
 import { findItem } from 'lib/utils';
 import { imagesApi } from 'lib/const';
 import { client } from 'lib/client';

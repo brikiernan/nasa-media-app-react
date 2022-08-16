@@ -7,22 +7,24 @@ import {
   RuxSwitch,
 } from '@astrouxds/react';
 
+import { Path } from 'lib/const';
 import { useAppContext } from 'providers';
 import { useTheme } from 'hooks';
 import './search-header.css';
 
 export const SearchHeader: React.FC = () => {
+  const navigate = useNavigate();
   const { icon, onChange } = useTheme();
   const [query, setQuery] = useState('');
-  const navigate = useNavigate();
-  const { setSearch } = useAppContext();
+  const { params, setSearch } = useAppContext();
+  const { media_type, page, year_end, year_start } = params;
 
   const handleChange = (event: any) => {
     setQuery(event.target.value);
   };
 
   const handleSubmit = () => {
-    const search = `/search?q=${query}`;
+    const search = `${Path.search}?q=${query}&page=${page}&media_type=${media_type}&year_start=${year_start}&year_end=${year_end}`;
     navigate(search);
     setSearch(search);
     setQuery('');

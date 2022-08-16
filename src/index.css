@@ -27,14 +27,6 @@ rux-select {
   width: 12rem;
 }
 
-.media-item-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 28rem);
-  padding: var(--spacing-6);
-  gap: var(--spacing-8) var(--spacing-4);
-  justify-content: space-between;
-}
-
 .flex-center {
   height: calc(100vh - 100px);
   display: flex;

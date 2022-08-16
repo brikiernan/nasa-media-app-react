@@ -1,4 +1,4 @@
-import { MediaType } from 'types';
+import type { MediaType } from 'types';
 
 type MediaDisplayProps = {
   media_type: MediaType;

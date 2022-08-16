@@ -1,11 +1,5 @@
 export * from './exif-data';
 
-export enum Path {
-  details = '/:id',
-  home = '/',
-  search = '/search',
-}
-
 export type Children = {
   children: React.ReactNode;
 };
@@ -41,6 +35,9 @@ export type Collection = {
     href: string;
     items: Item[];
     version: string;
+    metadata?: {
+      total_hits: number;
+    };
   };
 };
 

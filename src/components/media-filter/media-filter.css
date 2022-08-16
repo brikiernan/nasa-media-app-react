@@ -1,0 +1,13 @@
+#media-filter {
+  height: 28rem;
+  position: sticky;
+  --body-padding: 0;
+  top: 6.25rem;
+  padding: var(--spacing-6) var(--spacing-0) var(--spacing-6) var(--spacing-6);
+}
+
+#media-filter-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}

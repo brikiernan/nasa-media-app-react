@@ -1,3 +1,16 @@
-.search-results {
+#search-container {
+  display: grid;
+  grid-template-columns: 28rem 1fr;
+}
+
+#search-results {
   padding: var(--spacing-0) var(--spacing-6);
+}
+
+#search-results-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 28rem);
+  padding: var(--spacing-6);
+  gap: var(--spacing-8) var(--spacing-4);
+  justify-content: space-around;
 }

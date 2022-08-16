@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { ExifData, MediaType } from 'types';
+import type { ExifData, MediaType } from 'types';
 import { client } from 'lib/client';
 import { findAsset, setHttps } from 'lib/utils';
 import { imagesAssets } from 'lib/const';

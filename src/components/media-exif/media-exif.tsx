@@ -8,7 +8,7 @@ import {
   RuxTableRow,
 } from '@astrouxds/react';
 
-import { ExifData } from 'types';
+import type { ExifData } from 'types';
 import './media-exif.css';
 
 type MediaExifProps = {

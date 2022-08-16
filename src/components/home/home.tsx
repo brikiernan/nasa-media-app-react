@@ -2,6 +2,7 @@ import { RuxTab, RuxTabs } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
 import { useScroll } from 'hooks';
+import Loading from 'components/loading';
 import MediaItem from 'components/media-item';
 import './home.css';
 
@@ -9,8 +10,11 @@ const tab1 = 'Most Popular';
 const tab2 = 'Recent Uploads';
 
 export const Home: React.FC = () => {
-  const { isPopular, popular, recent, setIsPopular } = useAppContext();
+  // prettier-ignore
+  const { isLoading, isPopular, popular, recent, setIsPopular } = useAppContext();
   useScroll('home-scroll-position');
+
+  if (isLoading) return <Loading />;
 
   const handleSelected = (event: any) => {
     if (event.target.innerText === tab1) return setIsPopular(true);
@@ -21,7 +25,7 @@ export const Home: React.FC = () => {
     <>
       <nav id='home-tabs'>
         <RuxTabs onRuxselected={e => console.log(e.target)}>
-          <RuxTab onClick={handleSelected} selected={isPopular}>
+          <RuxTab onClick={e => handleSelected} selected={isPopular}>
             {tab1}
           </RuxTab>
           <RuxTab onClick={handleSelected} selected={!isPopular}>
@@ -29,7 +33,7 @@ export const Home: React.FC = () => {
           </RuxTab>
         </RuxTabs>
       </nav>
-      <main className='media-item-container'>
+      <main id='home-item-container'>
         {isPopular
           ? popular.map((item, i) => (
               <MediaItem key={item.data[0].nasa_id + i} {...item} />
