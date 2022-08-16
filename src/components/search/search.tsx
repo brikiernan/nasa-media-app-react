@@ -19,12 +19,12 @@ export const Search: React.FC = () => {
         <Breadcrumbs {...{ search }} />
         <div id='search-results'>
           {!!results.length ? (
-            <>
+            <div id='search-meta'>
               <h2>Showing results for "{params.q}":</h2>
               <p>
                 Displaying page {params.page} of {pages}
               </p>
-            </>
+            </div>
           ) : (
             <h2>No results found.</h2>
           )}
