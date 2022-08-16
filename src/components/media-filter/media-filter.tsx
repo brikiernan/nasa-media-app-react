@@ -9,15 +9,17 @@ import {
   RuxTableCell,
   RuxCheckbox,
   RuxIcon,
-  RuxSlider,
   RuxButton,
 } from '@astrouxds/react';
 
+import { useAppContext } from 'providers';
 import { useFilter } from 'hooks';
+import DualRange from 'components/dual-range';
 import './media-filter.css';
 
 export const MediaFilter: React.FC = () => {
-  const { handleChange, handleClick, isMatch, mediaChecked } = useFilter();
+  const { params } = useAppContext();
+  const { handleChange, handleClick, showUpdate, mediaChecked } = useFilter();
 
   return (
     <RuxContainer id='media-filter'>
@@ -72,12 +74,16 @@ export const MediaFilter: React.FC = () => {
         <RuxTableBody>
           <RuxTableRow>
             <RuxTableCell>
-              <RuxSlider />
+              <div id='media-filter-years'>
+                <p>{params.year_start}</p>
+                <p>{params.year_end}</p>
+              </div>
+              <DualRange />
             </RuxTableCell>
           </RuxTableRow>
         </RuxTableBody>
       </RuxTable>
-      {!isMatch && (
+      {showUpdate && (
         <RuxButton onClick={handleClick} slot='footer'>
           Update Results
         </RuxButton>

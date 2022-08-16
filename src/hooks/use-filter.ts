@@ -5,34 +5,46 @@ import { useAppContext } from 'providers';
 import { Path } from 'lib/const';
 
 const media_type = 'media_type';
+enum MediaType {
+  audio = 'audio',
+  image = 'image',
+  video = 'video',
+}
 
 const setInitial = (types: string[]) => ({
-  images: types.includes('image'),
-  videos: types.includes('video'),
-  audio: types.includes('audio'),
+  images: types.includes(MediaType.image),
+  videos: types.includes(MediaType.video),
+  audio: types.includes(MediaType.audio),
 });
 
 export const useFilter = () => {
   const navigate = useNavigate();
-  const [isMatch, setIsMatch] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
   const { params, setSearch } = useAppContext();
   const types = params.media_type.split(',');
   const initialMediaTypes = useMemo(() => setInitial(types), [types]);
   const [mediaChecked, setMediaChecked] = useState(initialMediaTypes);
+  const [initialYears] = useState({
+    start: params.year_start,
+    end: params.year_end,
+  });
 
   useEffect(() => {
-    const initial = JSON.stringify(initialMediaTypes);
-    const updated = JSON.stringify(mediaChecked);
-    const match = initial === updated;
-    const checked = Object.values(mediaChecked).includes(true);
-    setIsMatch(!checked || match);
-  }, [mediaChecked, initialMediaTypes]);
+    const initialTypes = JSON.stringify(initialMediaTypes);
+    const updatedTypes = JSON.stringify(mediaChecked);
+    const isSameTypes = initialTypes === updatedTypes;
+    const isStartMatch = params.year_start === initialYears.start;
+    const isEndMatch = params.year_end === initialYears.end;
+    const isUpdate = !isSameTypes || !isEndMatch || !isStartMatch;
+    const hasACheck = Object.values(mediaChecked).includes(true);
+    setShowUpdate(isUpdate && hasACheck);
+  }, [initialMediaTypes, initialYears, mediaChecked, params]);
 
   const handleClick = () => {
     const mediaTypes = [
-      mediaChecked.images && 'image',
-      mediaChecked.videos && 'video',
-      mediaChecked.audio && 'audio',
+      mediaChecked.images && MediaType.image,
+      mediaChecked.videos && MediaType.video,
+      mediaChecked.audio && MediaType.audio,
     ].filter(type => type !== false);
     const urlParams = new URLSearchParams(params);
     urlParams.delete(media_type);
@@ -53,7 +65,7 @@ export const useFilter = () => {
   return {
     handleChange,
     handleClick,
-    isMatch,
+    showUpdate,
     mediaChecked,
   };
 };

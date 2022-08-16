@@ -18,6 +18,7 @@ type AppContextProps = {
   results: Item[];
   search: string;
   setIsPopular: React.Dispatch<React.SetStateAction<boolean>>;
+  setParams: React.Dispatch<React.SetStateAction<Params>>;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
 
@@ -32,6 +33,7 @@ const AppContext = createContext<AppContextProps>({
   results: [],
   search: '',
   setIsPopular: () => undefined,
+  setParams: () => undefined,
   setSearch: () => undefined,
 });
 
@@ -125,6 +127,7 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
     results,
     search,
     setIsPopular,
+    setParams,
     setSearch,
   };
 

@@ -1,7 +1,7 @@
 #media-filter {
   height: 28rem;
   position: sticky;
-  --body-padding: 0;
+  --body-padding: var(--spacing-0);
   top: 6.25rem;
   padding: var(--spacing-6) var(--spacing-0) var(--spacing-6) var(--spacing-6);
 }
@@ -10,4 +10,10 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-3);
+}
+
+#media-filter-years {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--spacing-4);
 }
