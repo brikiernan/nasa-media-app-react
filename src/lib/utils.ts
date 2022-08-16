@@ -19,10 +19,6 @@ export const findAsset = (asset: string, size: string, type?: MediaType) => {
   return fileName === size + '.jpg';
 };
 
-export const setSearchPath = (query: string) => {
-  return `/search?q=${query}`;
-};
-
 export const setHttps = (url: string) => {
   if (url.charAt(4) !== 's') {
     return url.split(':').join('s:');
