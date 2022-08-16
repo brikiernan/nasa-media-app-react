@@ -6,15 +6,15 @@
 #dual-range input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
-  height: var(--spacing-1);
+  height: var(--spacing-025);
   width: 100%;
   position: absolute;
-  background-color: var(--color-text-secondary);
+  background-color: var(--color-background-interactive-default);
   pointer-events: none;
 }
 
 #dual-range input[type='range']::-webkit-slider-runnable-track {
-  z-index: 10;
+  z-index: 1;
 }
 
 #dual-range input[type='range']::-webkit-slider-thumb {
@@ -37,4 +37,36 @@
   position: absolute;
   height: var(--spacing-1);
   background-color: var(--color-background-interactive-default);
+}
+
+#dual-range-ticks {
+  --tick-height: var(--spacing-1);
+  width: 100%;
+  height: var(--tick-height);
+  margin-top: var(--spacing-6);
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(
+      to right,
+      var(--color-text-secondary),
+      var(--spacing-050),
+      transparent var(--spacing-025)
+    )
+    repeat-x;
+  background-size: 8px var(--tick-height);
+}
+
+#dual-range-tick {
+  position: relative;
+  box-shadow: -1px 0 0 0 var(--color-text-secondary);
+  height: var(--spacing-4);
+  width: 1px;
+}
+
+#dual-range-tick > p {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  position: absolute;
+  top: 16px;
+  left: -16px;
 }

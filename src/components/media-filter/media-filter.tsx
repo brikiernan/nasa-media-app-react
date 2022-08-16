@@ -72,7 +72,7 @@ export const MediaFilter: React.FC = () => {
           </RuxTableHeaderRow>
         </RuxTableHeader>
       </RuxTable>
-      <div id='media-filer-range-container'>
+      <div id='media-filter-range-container'>
         <div id='media-filter-range-years'>
           <p>{params.year_start}</p>
           <p>{params.year_end}</p>

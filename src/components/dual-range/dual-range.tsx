@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useAppContext } from 'providers';
 import { initialParams } from 'lib/const';
@@ -6,29 +6,39 @@ import './dual-range.css';
 
 export const DualRange: React.FC = () => {
   const { params, setParams } = useAppContext();
+  const [years, setYears] = useState<number[]>([]);
   const [maxVal] = useState(+initialParams.year_end);
   const [minVal] = useState(+initialParams.year_start);
   const endRef = useRef<HTMLInputElement>(null);
   const range = useRef<HTMLDivElement>(null);
 
-  const getPercent = useCallback(
-    (value: number) => {
-      return Math.round(((value - minVal) / (maxVal - minVal)) * 100);
-    },
-    [maxVal, minVal]
-  );
-
   useEffect(() => {
-    if (endRef.current) {
+    const getPercent = (value: number) => {
+      return Math.round(((value - minVal) / (maxVal - minVal)) * 100);
+    };
+
+    if (endRef.current && range.current) {
       const minPercent = getPercent(+params.year_start);
       const maxPercent = getPercent(+endRef.current.value);
 
-      if (range.current) {
-        range.current.style.left = `${minPercent}%`;
-        range.current.style.width = `${maxPercent - minPercent}%`;
-      }
+      range.current.style.left = `${minPercent}%`;
+      range.current.style.width = `${maxPercent - minPercent}%`;
     }
-  }, [minVal, getPercent, params]);
+  }, [minVal, params, maxVal]);
+
+  useEffect(() => {
+    const yearsDiff = +initialParams.year_end - +initialParams.year_start;
+    const steps = 6;
+    const addtionalYears = yearsDiff / steps;
+    const yearsArr: number[] = [];
+    let year = +initialParams.year_start;
+    for (let i = 0; steps > i; i++) {
+      if (i === 0) yearsArr.push(year);
+      year += addtionalYears;
+      yearsArr.push(year);
+    }
+    setYears(yearsArr);
+  }, []);
 
   const handleStart = (event: React.ChangeEvent<HTMLInputElement>) => {
     setParams(prev => ({ ...prev, year_start: event.target.value }));
@@ -56,6 +66,13 @@ export const DualRange: React.FC = () => {
         onChange={handleEnd}
       />
       <div ref={range} id='dual-range-slider-overlay' />
+      <div id='dual-range-ticks'>
+        {years.map(year => (
+          <div key={year} id='dual-range-tick'>
+            <p>{year}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
