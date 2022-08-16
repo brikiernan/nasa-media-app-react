@@ -28,13 +28,12 @@ export const DualRange: React.FC = () => {
 
   useEffect(() => {
     const yearsDiff = +initialParams.year_end - +initialParams.year_start;
-    const steps = 6;
-    const additionalYears = yearsDiff / steps;
+    const additionalTicks = 6;
+    const additionalYears = yearsDiff / additionalTicks;
     const yearsArr: number[] = [];
     let year = +initialParams.year_start;
-    for (let i = 0; steps > i; i++) {
-      if (i === 0) yearsArr.push(year);
-      year += additionalYears;
+    for (let i = 0; additionalTicks >= i; i++) {
+      if (i !== 0) year += additionalYears;
       yearsArr.push(year);
     }
     setYears(yearsArr);
