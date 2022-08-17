@@ -1,10 +1,20 @@
 #search-container {
   display: grid;
   grid-template-columns: 28rem 1fr;
+  padding: var(--spacing-6) var(--spacing-0);
 }
 
-#search-results {
+#search-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+#search-container header {
   padding: var(--spacing-0) var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
 }
 
 #search-meta {
@@ -13,10 +23,14 @@
   gap: var(--spacing-1);
 }
 
-#search-results-container {
+#search-container main {
   display: grid;
   grid-template-columns: repeat(auto-fill, 28rem);
-  padding: var(--spacing-6);
+  padding: var(--spacing-0) var(--spacing-6);
   gap: var(--spacing-8) var(--spacing-4);
   justify-content: space-around;
+}
+
+#search-container footer {
+  padding: var(--spacing-0) var(--spacing-6);
 }
