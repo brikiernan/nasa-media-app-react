@@ -1,24 +1,22 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import type { Children, Collection, Item } from 'types';
+import type { Children, Collection, Item, SearchParams } from 'types';
 import { imagesApi, imagesAssets, initialParams, Path } from 'lib/const';
 import { client } from 'lib/client';
-
-type Params = typeof initialParams;
 
 type AppContextProps = {
   isLoading: boolean;
   isPopular: boolean;
   items: Item[];
   pages: number;
-  params: Params;
+  params: SearchParams;
   popular: Item[];
   recent: Item[];
   results: Item[];
   search: string;
   setIsPopular: React.Dispatch<React.SetStateAction<boolean>>;
-  setParams: React.Dispatch<React.SetStateAction<Params>>;
+  setParams: React.Dispatch<React.SetStateAction<SearchParams>>;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
 

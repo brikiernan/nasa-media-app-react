@@ -1,9 +1,8 @@
+import { initialParams } from 'lib/const';
+
 export * from './exif-data';
-
-export type Children = {
-  children: React.ReactNode;
-};
-
+export type Children = { children: React.ReactNode };
+export type SearchParams = typeof initialParams;
 export type MediaType = 'audio' | 'image' | 'video';
 
 type Data = {

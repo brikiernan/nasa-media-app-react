@@ -1,5 +1,5 @@
-import type { Item, MediaType } from 'types';
-import { imagesAssets } from './const';
+import type { Item, MediaType, SearchParams } from 'types';
+import { imagesAssets, Path } from './const';
 
 export const findItem = (items: Item[], id?: string) => {
   return items.find(({ data }) => data[0].nasa_id === id);
@@ -47,4 +47,9 @@ export const debounce = (func: Function, timeout = 300) => {
       func.apply(this, args);
     }, timeout);
   };
+};
+
+export const setSearchUrl = (params: SearchParams) => {
+  const { media_type, page, q, year_end, year_start } = params;
+  return `${Path.search}?q=${q}&page=${page}&media_type=${media_type}&year_start=${year_start}&year_end=${year_end}`;
 };

@@ -3,6 +3,7 @@ import { RuxContainer } from '@astrouxds/react';
 
 import { useAppContext } from 'providers';
 import { useAssets, useItem } from 'hooks';
+import { setSearchUrl } from 'lib/utils';
 import NotFound from 'components/not-found';
 import Loading from 'components/loading';
 import Breadcrumbs from 'components/breadcrumbs';
@@ -10,7 +11,6 @@ import MediaDownload from 'components/media-download';
 import MediaDisplay from 'components/media-display';
 import MediaExif from 'components/media-exif';
 import './details.css';
-import { Path } from 'lib/const';
 
 export const Details: React.FC = () => {
   const { id } = useParams();
@@ -29,11 +29,6 @@ export const Details: React.FC = () => {
   if (notFound) return <NotFound />;
   if (!item) return <Loading />;
 
-  const setSearchPath = (query: string) => {
-    const { media_type, page, year_end, year_start } = params;
-    return `${Path.search}?q=${query}&page=${page}&media_type=${media_type}&year_start=${year_start}&year_end=${year_end}`;
-  };
-
   const {
     center,
     date_created,
@@ -48,7 +43,9 @@ export const Details: React.FC = () => {
 
   return (
     <>
-      <Breadcrumbs {...{ id, search }} />
+      <header id='details-breadcrumbs'>
+        <Breadcrumbs {...{ id, search }} />
+      </header>
       <main id='details-container'>
         <RuxContainer>
           <div id='details-header' slot='header'>
@@ -71,13 +68,17 @@ export const Details: React.FC = () => {
                   {new Date(date_created).toLocaleDateString()}
                 </p>
                 <p>
-                  <b>Center:</b> <a href={setSearchPath(center)}>{center}</a>
+                  <b>Center:</b>{' '}
+                  <a href={setSearchUrl({ ...params, q: center })}>{center}</a>
                 </p>
                 {keywords && (
                   <p>
                     <b>Keywords:</b>{' '}
                     {keywords.map(keyword => (
-                      <a key={keyword} href={setSearchPath(keyword)}>
+                      <a
+                        key={keyword}
+                        href={setSearchUrl({ ...params, q: keyword })}
+                      >
                         {keyword}
                         <span id='details-keyword'>,</span>
                       </a>
@@ -87,7 +88,9 @@ export const Details: React.FC = () => {
                 {location && (
                   <p>
                     <b>Location:</b>{' '}
-                    <a href={setSearchPath(location)}>{location}</a>
+                    <a href={setSearchUrl({ ...params, q: location })}>
+                      {location}
+                    </a>
                   </p>
                 )}
                 {photographer && (
