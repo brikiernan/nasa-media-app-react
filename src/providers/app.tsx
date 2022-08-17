@@ -77,13 +77,13 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
       setSearchError('');
       setPages(0);
       setResults([]);
+      setIsLoading(true);
       const urlParams = new URLSearchParams(location.search);
       const search = urlParams.toString();
       const endpoint = `${imagesApi}${Path.search}?${search}`;
 
       const fetch = async () => {
         try {
-          setIsLoading(true);
           const results = await client.get<Collection>(endpoint);
 
           setItems(prev => [
