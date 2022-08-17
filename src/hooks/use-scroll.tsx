@@ -7,7 +7,7 @@ export const useScroll = (cookieName: string) => {
     const cookie = getCookie(cookieName);
     if (cookie) {
       const top = parseInt(cookie);
-      const time = setTimeout(() => window.scrollTo({ top }), 50);
+      const time = setTimeout(() => window.scrollTo({ top }), 0);
 
       return () => clearTimeout(time);
     }
