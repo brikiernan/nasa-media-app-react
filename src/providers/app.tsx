@@ -14,11 +14,9 @@ type AppContextProps = {
   popular: Item[];
   recent: Item[];
   results: Item[];
-  // search: string;
   searchError: string;
   setIsPopular: React.Dispatch<React.SetStateAction<boolean>>;
   setParams: React.Dispatch<React.SetStateAction<SearchParams>>;
-  // setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const AppContext = createContext<AppContextProps>({
@@ -75,9 +73,10 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    setSearchError('');
-    setPages(0);
     if (!!location.search) {
+      setSearchError('');
+      setPages(0);
+      setResults([]);
       const urlParams = new URLSearchParams(location.search);
       const search = urlParams.toString();
       const endpoint = `${imagesApi}${Path.search}?${search}`;
