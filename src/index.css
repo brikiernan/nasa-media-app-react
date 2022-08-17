@@ -5,6 +5,14 @@
   margin: var(--spacing-0);
 }
 
+ul {
+  padding: var(--spacing-0);
+}
+
+li {
+  list-style-type: none;
+}
+
 h2 {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-regular);

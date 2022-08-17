@@ -1,9 +1,9 @@
 #media-filter {
-  height: 28rem;
+  height: 24rem;
   position: sticky;
   --body-padding: var(--spacing-0);
-  top: 6.25rem;
-  padding: var(--spacing-6) var(--spacing-0) var(--spacing-6) var(--spacing-6);
+  top: 7.75rem;
+  padding-left: var(--spacing-6);
 }
 
 #media-filter-cell {

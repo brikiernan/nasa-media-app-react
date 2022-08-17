@@ -16,16 +16,15 @@ export const SearchHeader: React.FC = () => {
   const navigate = useNavigate();
   const { icon, onChange } = useTheme();
   const [query, setQuery] = useState('');
-  const { params, setSearch } = useAppContext();
+  const { params } = useAppContext();
 
   const handleChange = (event: any) => {
     setQuery(event.target.value);
   };
 
   const handleSubmit = () => {
-    const searchUrl = setSearchUrl({ ...params, q: query });
+    const searchUrl = setSearchUrl({ ...params, q: query, page: '1' });
     navigate(searchUrl);
-    setSearch(searchUrl);
     setQuery('');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

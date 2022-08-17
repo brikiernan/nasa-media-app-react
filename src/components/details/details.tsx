@@ -12,9 +12,11 @@ import MediaDisplay from 'components/media-display';
 import MediaExif from 'components/media-exif';
 import './details.css';
 
+const page = '1';
+
 export const Details: React.FC = () => {
   const { id } = useParams();
-  const { items, params, search } = useAppContext();
+  const { items, params } = useAppContext();
   const { item, notFound } = useItem(items, id);
 
   const { exif, thumb, ...sizeAssets } = useAssets({
@@ -44,7 +46,7 @@ export const Details: React.FC = () => {
   return (
     <>
       <header id='details-breadcrumbs'>
-        <Breadcrumbs {...{ id, search }} />
+        <Breadcrumbs id={id} />
       </header>
       <main id='details-container'>
         <RuxContainer>
@@ -69,7 +71,9 @@ export const Details: React.FC = () => {
                 </p>
                 <p>
                   <b>Center:</b>{' '}
-                  <a href={setSearchUrl({ ...params, q: center })}>{center}</a>
+                  <a href={setSearchUrl({ ...params, q: center, page })}>
+                    {center}
+                  </a>
                 </p>
                 {keywords && (
                   <p>
@@ -77,7 +81,7 @@ export const Details: React.FC = () => {
                     {keywords.map(keyword => (
                       <a
                         key={keyword}
-                        href={setSearchUrl({ ...params, q: keyword })}
+                        href={setSearchUrl({ ...params, q: keyword, page })}
                       >
                         {keyword}
                         <span id='details-keyword'>,</span>
@@ -88,7 +92,7 @@ export const Details: React.FC = () => {
                 {location && (
                   <p>
                     <b>Location:</b>{' '}
-                    <a href={setSearchUrl({ ...params, q: location })}>
+                    <a href={setSearchUrl({ ...params, q: location, page })}>
                       {location}
                     </a>
                   </p>

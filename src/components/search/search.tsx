@@ -8,7 +8,8 @@ import Pagination from 'components/pagination';
 import './search.css';
 
 export const Search: React.FC = () => {
-  const { isLoading, pages, params, results, search } = useAppContext();
+  // prettier-ignore
+  const { isLoading, pages, params, results, searchError } = useAppContext();
   useScroll('search-scroll-position');
 
   if (isLoading) return <Loading />;
@@ -18,7 +19,7 @@ export const Search: React.FC = () => {
       <MediaFilter />
       <div id='search-wrapper'>
         <header>
-          <Breadcrumbs {...{ search }} />
+          <Breadcrumbs />
           <div>
             {!!results.length ? (
               <div id='search-meta'>
@@ -27,6 +28,8 @@ export const Search: React.FC = () => {
                   Displaying page {params.page} of {pages}
                 </p>
               </div>
+            ) : searchError ? (
+              <h3 id='search-error'>{searchError}</h3>
             ) : (
               <h2>No results found.</h2>
             )}

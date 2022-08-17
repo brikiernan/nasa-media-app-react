@@ -14,10 +14,11 @@ type AppContextProps = {
   popular: Item[];
   recent: Item[];
   results: Item[];
-  search: string;
+  // search: string;
+  searchError: string;
   setIsPopular: React.Dispatch<React.SetStateAction<boolean>>;
   setParams: React.Dispatch<React.SetStateAction<SearchParams>>;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  // setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const AppContext = createContext<AppContextProps>({
@@ -29,17 +30,15 @@ const AppContext = createContext<AppContextProps>({
   popular: [],
   recent: [],
   results: [],
-  search: '',
+  searchError: '',
   setIsPopular: () => undefined,
   setParams: () => undefined,
-  setSearch: () => undefined,
 });
 
 export const useAppContext = () => useContext(AppContext);
 
 export const AppProvider: React.FC<Children> = ({ children }) => {
   const location = useLocation();
-  const [search, setSearch] = useState('');
   const [items, setItems] = useState<Item[]>([]);
   const [popular, setPopular] = useState<Item[]>([]);
   const [recent, setRecent] = useState<Item[]>([]);
@@ -49,13 +48,7 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
   const [params, setParams] = useState(initialParams);
   const [pages, setPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const isSearch = !!location.search;
-    if (isSearch) {
-      setSearch(Path.search + location.search);
-    }
-  }, [location.search]);
+  const [searchError, setSearchError] = useState('');
 
   useEffect(() => {
     const fetch = async () => {
@@ -82,11 +75,17 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (!!search) {
+    setSearchError('');
+    setPages(0);
+    if (!!location.search) {
+      const urlParams = new URLSearchParams(location.search);
+      const search = urlParams.toString();
+      const endpoint = `${imagesApi}${Path.search}?${search}`;
+
       const fetch = async () => {
         try {
           setIsLoading(true);
-          const results = await client.get<Collection>(imagesApi + search);
+          const results = await client.get<Collection>(endpoint);
 
           setItems(prev => [
             ...prev.slice(0, defaultItemsLength),
@@ -94,8 +93,9 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
           ]);
 
           setResults(results.collection.items);
-          setPages(results.collection.metadata?.total_hits || 0);
-        } catch (error) {
+          setPages(prev => results.collection.metadata?.total_hits || prev);
+        } catch (error: any) {
+          setSearchError(error.reason || error.message);
           console.log(error);
         } finally {
           setIsLoading(false);
@@ -104,13 +104,15 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
 
       fetch();
     }
-  }, [defaultItemsLength, search, location]);
+  }, [defaultItemsLength, location.search]);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.search).entries();
+    if (location.search) {
+      const urlParams = new URLSearchParams(location.search).entries();
 
-    for (const urlParam of urlParams) {
-      setParams(prev => ({ ...prev, [urlParam[0]]: urlParam[1] }));
+      for (const urlParam of urlParams) {
+        setParams(prev => ({ ...prev, [urlParam[0]]: urlParam[1] }));
+      }
     }
   }, [location.search]);
 
@@ -123,10 +125,9 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
     popular,
     recent,
     results,
-    search,
+    searchError,
     setIsPopular,
     setParams,
-    setSearch,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

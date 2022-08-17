@@ -2,9 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppContext } from 'providers';
-import { Path } from 'lib/const';
+import { setSearchUrl } from 'lib/utils';
 
-const media_type = 'media_type';
 enum MediaType {
   audio = 'audio',
   image = 'image',
@@ -20,7 +19,7 @@ const setInitial = (types: string[]) => ({
 export const useFilter = () => {
   const navigate = useNavigate();
   const [showUpdate, setShowUpdate] = useState(false);
-  const { params, setSearch } = useAppContext();
+  const { params } = useAppContext();
   const types = params.media_type.split(',');
   const initialMediaTypes = useMemo(() => setInitial(types), [types]);
   const [mediaChecked, setMediaChecked] = useState(initialMediaTypes);
@@ -46,12 +45,14 @@ export const useFilter = () => {
       mediaChecked.videos && MediaType.video,
       mediaChecked.audio && MediaType.audio,
     ].filter(type => type !== false);
-    const urlParams = new URLSearchParams(params);
-    urlParams.delete(media_type);
-    const existing = urlParams.toString();
-    const search = `${Path.search}?${existing}&${media_type}=${mediaTypes}`;
+
+    const search = setSearchUrl({
+      ...params,
+      media_type: mediaTypes.join(),
+      page: '1',
+    });
+
     navigate(search);
-    setSearch(search);
   };
 
   const handleChange = (event: any) => {
