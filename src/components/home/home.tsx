@@ -6,8 +6,8 @@ import Loading from 'components/loading';
 import MediaItem from 'components/media-item';
 import './home.css';
 
-const tab1 = 'Most Popular';
-const tab2 = 'Recent Uploads';
+const mostPopular = 'Most Popular';
+const mostRecent = 'Recent Uploads';
 
 export const Home: React.FC = () => {
   // prettier-ignore
@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
   if (isLoading) return <Loading />;
 
   const handleSelected = (event: any) => {
-    if (event.target.id === tab1) return setIsPopular(true);
+    if (event.target.id === mostPopular) return setIsPopular(true);
     setIsPopular(false);
   };
 
@@ -25,11 +25,19 @@ export const Home: React.FC = () => {
     <>
       <nav id='home-tabs'>
         <RuxTabs>
-          <RuxTab id={tab1} onClick={handleSelected} selected={isPopular}>
-            {tab1}
+          <RuxTab
+            id={mostRecent}
+            onClick={handleSelected}
+            selected={!isPopular}
+          >
+            {mostRecent}
           </RuxTab>
-          <RuxTab id={tab2} onClick={handleSelected} selected={!isPopular}>
-            {tab2}
+          <RuxTab
+            id={mostPopular}
+            onClick={handleSelected}
+            selected={isPopular}
+          >
+            {mostPopular}
           </RuxTab>
         </RuxTabs>
       </nav>

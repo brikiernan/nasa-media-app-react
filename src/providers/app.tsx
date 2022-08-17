@@ -24,7 +24,7 @@ type AppContextProps = {
 
 const AppContext = createContext<AppContextProps>({
   isLoading: false,
-  isPopular: true,
+  isPopular: false,
   items: [],
   pages: 0,
   params: initialParams,
@@ -47,7 +47,7 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
   const [recent, setRecent] = useState<Item[]>([]);
   const [results, setResults] = useState<Item[]>([]);
   const [defaultItemsLength, setDefaultItemsLength] = useState(-1);
-  const [isPopular, setIsPopular] = useState(true);
+  const [isPopular, setIsPopular] = useState(false);
   const [params, setParams] = useState(initialParams);
   const [pages, setPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
