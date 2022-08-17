@@ -34,7 +34,7 @@ export const DualRange: React.FC = () => {
     let year = +initialParams.year_start;
     for (let i = 0; additionalTicks >= i; i++) {
       if (i !== 0) year += additionalYears;
-      yearsArr.push(year);
+      yearsArr.push(Math.floor(year));
     }
     setYears(yearsArr);
   }, []);
