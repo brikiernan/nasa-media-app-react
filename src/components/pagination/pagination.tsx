@@ -49,7 +49,7 @@ export const Pagination: React.FC = () => {
             return <li key={pageNumber}>{pageNumber}</li>;
           }
 
-          if (count <= 7) {
+          if (count <= 10) {
             return <PaginationItem key={href} href={href} page={pageNumber} />;
           }
 
