@@ -47,3 +47,8 @@ rux-select {
   height: var(--spacing-8);
   margin: var(--spacing-0) var(--spacing-3);
 }
+
+.link-disabled {
+  pointer-events: none;
+  opacity: var(--opacity-40);
+}

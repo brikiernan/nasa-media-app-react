@@ -4,6 +4,15 @@
   justify-content: center;
 }
 
-#pagination span {
-  color: var(--color-background-interactive-default);
+#pagination > ul {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+#pagination > li {
+  width: var(--spacing-4);
+}
+
+#pagination > p {
+  width: var(--spacing-4);
 }
