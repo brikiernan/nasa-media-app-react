@@ -1,18 +1,14 @@
 #pagination {
   display: flex;
-  gap: var(--spacing-4);
+  gap: var(--spacing-8);
   justify-content: center;
 }
 
 #pagination > ul {
   display: flex;
-  gap: var(--spacing-4);
+  gap: var(--spacing-8);
 }
 
-#pagination > li {
-  width: var(--spacing-4);
-}
-
-#pagination > p {
-  width: var(--spacing-4);
+#pagination .ellipsis {
+  color: var(--color-text-interactive-default);
 }

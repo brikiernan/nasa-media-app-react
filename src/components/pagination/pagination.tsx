@@ -54,7 +54,11 @@ export const Pagination: React.FC = () => {
           }
 
           if (page >= max && pageNumber === 2) {
-            return <li key={pageNumber}>...</li>;
+            return (
+              <li className='ellipsis' key={pageNumber}>
+                ...
+              </li>
+            );
           }
 
           if (
@@ -85,7 +89,13 @@ export const Pagination: React.FC = () => {
             return <PaginationItem key={href} href={href} page={pageNumber} />;
           }
 
-          if (isRightBeforeLastPage) return <li key={pageNumber}>...</li>;
+          if (isRightBeforeLastPage) {
+            return (
+              <li className='ellipsis' key={pageNumber}>
+                ...
+              </li>
+            );
+          }
 
           return null;
         })}
