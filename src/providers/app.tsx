@@ -5,6 +5,9 @@ import type { Children, Collection, Item, SearchParams } from 'types';
 import { imagesApi, imagesAssets, initialParams, Path } from 'lib/const';
 import { client } from 'lib/client';
 
+const initialPositions = { home: 0, search: 0 };
+type Positions = typeof initialPositions;
+
 type AppContextProps = {
   isLoading: boolean;
   isPopular: boolean;
@@ -12,11 +15,13 @@ type AppContextProps = {
   pages: number;
   params: SearchParams;
   popular: Item[];
+  positions: Positions;
   recent: Item[];
   results: Item[];
   searchError: string;
   setIsPopular: React.Dispatch<React.SetStateAction<boolean>>;
   setParams: React.Dispatch<React.SetStateAction<SearchParams>>;
+  setPositions: React.Dispatch<React.SetStateAction<Positions>>;
 };
 
 const AppContext = createContext<AppContextProps>({
@@ -26,11 +31,13 @@ const AppContext = createContext<AppContextProps>({
   pages: 0,
   params: initialParams,
   popular: [],
+  positions: initialPositions,
   recent: [],
   results: [],
   searchError: '',
   setIsPopular: () => undefined,
   setParams: () => undefined,
+  setPositions: () => undefined,
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -47,6 +54,7 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
   const [pages, setPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [searchError, setSearchError] = useState('');
+  const [positions, setPositions] = useState<Positions>(initialPositions);
 
   useEffect(() => {
     const fetch = async () => {
@@ -122,11 +130,13 @@ export const AppProvider: React.FC<Children> = ({ children }) => {
     pages: Math.ceil(pages / 100),
     params,
     popular,
+    positions,
     recent,
     results,
     searchError,
     setIsPopular,
     setParams,
+    setPositions,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

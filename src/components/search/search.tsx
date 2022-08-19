@@ -10,7 +10,7 @@ import './search.css';
 export const Search: React.FC = () => {
   // prettier-ignore
   const { isLoading, pages, params, results, searchError } = useAppContext();
-  useScroll('search-scroll-position');
+  useScroll('search');
 
   if (isLoading) return <Loading />;
 

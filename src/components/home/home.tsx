@@ -12,7 +12,7 @@ const mostRecent = 'Recent Uploads';
 export const Home: React.FC = () => {
   // prettier-ignore
   const { isLoading, isPopular, popular, recent, setIsPopular } = useAppContext();
-  useScroll('home-scroll-position');
+  useScroll('home');
 
   if (isLoading) return <Loading />;
 

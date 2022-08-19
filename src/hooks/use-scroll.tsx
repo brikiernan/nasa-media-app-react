@@ -1,22 +1,35 @@
 import { useEffect } from 'react';
 
-import { debounce, getCookie, setCookie } from 'lib/utils';
+import { debounce } from 'lib/utils';
+import { useAppContext } from 'providers';
 
-export const useScroll = (cookieName: string) => {
-  useEffect(() => {
-    const cookie = getCookie(cookieName);
-    if (cookie) {
-      const top = parseInt(cookie);
-      const time = setTimeout(() => window.scrollTo({ top }), 40);
-
-      return () => clearTimeout(time);
-    }
-  }, [cookieName]);
+export const useScroll = (pageName: string) => {
+  const { positions, setPositions } = useAppContext();
 
   useEffect(() => {
-    const debounced = debounce(() => setCookie(cookieName, window.scrollY));
+    const { home, search } = positions;
+    const isHome = pageName === 'home';
+
+    const top = isHome ? home : search;
+    const timeout = isHome ? 0 : 100;
+    const time = setTimeout(() => window.scrollTo({ top }), timeout);
+
+    return () => clearTimeout(time);
+  }, [pageName, positions]);
+
+  useEffect(() => {
+    const debounced = debounce(() => {
+      setPositions(prev => {
+        if (pageName === 'home') {
+          return { ...prev, home: window.scrollY };
+        }
+
+        return { ...prev, search: window.scrollY };
+      });
+    });
+
     window.addEventListener('scroll', debounced);
 
     return () => window.removeEventListener('scroll', debounced);
-  }, [cookieName]);
+  }, [pageName, setPositions]);
 };
