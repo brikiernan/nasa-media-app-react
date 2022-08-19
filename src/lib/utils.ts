@@ -1,15 +1,8 @@
 import type { Item, MediaType, SearchParams } from 'types';
-import { imagesAssets, Path } from './const';
+import { Path } from './const';
 
 export const findItem = (items: Item[], id?: string) => {
   return items.find(({ data }) => data[0].nasa_id === id);
-};
-
-export const setMediaUrl = (id: string, type: MediaType, size?: string) => {
-  const base = `${imagesAssets}/${type}/${id}/${id}~${size || 'orig'}`;
-  if (type === 'audio') return base + '.mp3';
-  if (type === 'video') return base + '.mp4';
-  return base + '.jpg';
 };
 
 export const findAsset = (asset: string, size: string, type?: MediaType) => {
@@ -24,19 +17,6 @@ export const setHttps = (url: string) => {
     return url.split(':').join('s:');
   }
   return url;
-};
-
-export const setCookie = (name: string, value: any) => {
-  const cookie = `${name}=${value};`;
-  document.cookie = cookie;
-};
-
-export const getCookie = (name: string) => {
-  const splitCookieArr = document.cookie.split('; ');
-  const row = splitCookieArr.find(row => row.startsWith(`${name}=`));
-  if (!row) return;
-  const value = row.split('=')[1];
-  return value;
 };
 
 export const debounce = (func: Function, timeout = 300) => {
