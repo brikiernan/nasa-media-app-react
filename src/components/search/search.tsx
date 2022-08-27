@@ -1,10 +1,14 @@
+import { Link } from 'react-router-dom';
+
 import { useAppContext } from 'providers';
 import { useScroll } from 'hooks';
+import { setSearchUrl } from 'lib/utils';
 import Loading from 'components/loading';
 import MediaFilter from 'components/media-filter';
 import Breadcrumbs from 'components/breadcrumbs';
 import MediaItem from 'components/media-item';
 import Pagination from 'components/pagination';
+import PaginationItem from 'components/pagination-item';
 import './search.css';
 
 export const Search: React.FC = () => {
@@ -41,7 +45,18 @@ export const Search: React.FC = () => {
           ))}
         </main>
         <footer>
-          <Pagination />
+          <Pagination
+            count={pages}
+            page={+params.page}
+            inner={2}
+            renderItem={item => (
+              <PaginationItem {...item}>
+                <Link to={setSearchUrl({ ...params, page: String(item.page) })}>
+                  {item.page}
+                </Link>
+              </PaginationItem>
+            )}
+          />
         </footer>
       </div>
     </section>
