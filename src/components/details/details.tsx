@@ -43,8 +43,6 @@ export const Details: React.FC = () => {
     photographer,
   } = item?.data[0];
 
-  console.log(location);
-
   return (
     <>
       <header id='details-breadcrumbs'>
