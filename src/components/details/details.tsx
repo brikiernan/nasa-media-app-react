@@ -43,6 +43,8 @@ export const Details: React.FC = () => {
     photographer,
   } = item?.data[0];
 
+  console.log(location);
+
   return (
     <>
       <header id='details-breadcrumbs'>
@@ -92,9 +94,19 @@ export const Details: React.FC = () => {
                 {location && (
                   <p>
                     <b>Location:</b>{' '}
-                    <a href={setSearchUrl({ ...params, q: location, page })}>
-                      {location}
-                    </a>
+                    {location.split(',').map(locale => (
+                      <a
+                        key={locale}
+                        href={setSearchUrl({
+                          ...params,
+                          q: locale.trim(),
+                          page,
+                        })}
+                      >
+                        {locale.trim()}
+                        <span id='details-keyword'>,</span>
+                      </a>
+                    ))}
                   </p>
                 )}
                 {photographer && (
