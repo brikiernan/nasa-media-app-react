@@ -5,6 +5,7 @@
 
 #pagination > ul {
   display: flex;
+  align-items: baseline;
 }
 
 #pagination .ellipsis {
@@ -13,4 +14,8 @@
 
 #pagination .white a {
   color: var(--color-text-primary);
+}
+
+#pagination rux-button::part(container) {
+  opacity: 1;
 }
