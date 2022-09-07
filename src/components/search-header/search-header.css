@@ -3,3 +3,11 @@
   min-width: 30rem;
   flex-grow: 1;
 }
+
+#theme-switch {
+  min-width: 6rem;
+  min-height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
